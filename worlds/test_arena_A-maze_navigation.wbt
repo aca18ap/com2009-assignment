@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.9999910065193187 0.003425925693402692 0.0024999827246134764 5.022380415540898
-  position 0.053426870094976694 8.11769968934841 2.6584068456795644
+  orientation -0.0020115316466132434 -0.9990509954086565 -0.04350933593388058 3.0492816405929184
+  position -0.5063364705931348 0.4032894388207447 -1.9675104857777541
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -261,4 +261,162 @@ DEF MAZE_WALLS Group {
       length 0.75
     }
   ]
+}
+DifferentialWheels {
+  translation -0.65 0.07 0.01
+  children [
+    Transform {
+      translation 0 0.0015 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry DEF BODY Cylinder {
+            height 0.12
+            radius 0.075
+          }
+        }
+      ]
+    }
+    Solid {
+      translation 0.08 -0.04 0
+      rotation 1 0 0 0
+      children [
+        DEF WHEEL Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+              }
+              geometry Cylinder {
+                height 0.01
+                radius 0.025
+              }
+            }
+          ]
+        }
+      ]
+      name "left wheel"
+    }
+    Solid {
+      translation 0 -0.04 0
+      children [
+        USE WHEEL
+      ]
+      name "right wheel"
+    }
+    DistanceSensor {
+      translation -0.0025945 0.05 -0.080645
+      rotation 0 1 0 1.5708
+      children [
+        DEF INFRARED Transform {
+          rotation 0 0 1 1.5708
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0.2
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ir0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.0552495 0.05 -0.0584107
+      rotation 0 -1 0 -1.047195307179586
+      children [
+        USE INFRARED
+      ]
+      name "ir1"
+    }
+    DistanceSensor {
+      translation 0.08 0.05 -0.03
+      rotation 0 1 0 0.261799
+      children [
+        USE INFRARED
+      ]
+      name "ir2"
+    }
+    DistanceSensor {
+      translation 0.0586602 0.05 0.055
+      rotation 0 -1 0 0.785396
+      children [
+        USE INFRARED
+      ]
+      name "ir3"
+    }
+    DistanceSensor {
+      translation 0.00330149 0.05 0.0776794
+      rotation 0 -1 0 1.5708
+      children [
+        USE INFRARED
+      ]
+      name "ir4"
+    }
+    DistanceSensor {
+      translation -0.0548891 0.05 0.0515244
+      rotation 0 1 0 -2.6179953071795863
+      children [
+        USE INFRARED
+      ]
+      name "ir5"
+    }
+    DistanceSensor {
+      translation -0.0825882 0.05 -0.0303408
+      rotation 0 1 0 2.87979
+      children [
+        USE INFRARED
+      ]
+      name "ir6"
+    }
+    DistanceSensor {
+      translation -0.0513397 0.05 -0.065
+      rotation 0 1 0 2.09439
+      children [
+        USE INFRARED
+      ]
+      name "ir7"
+    }
+    Solid {
+      translation 0 -0.02 0
+      children [
+        Camera {
+          translation 0 0.11 -0.07
+          rotation 1 0 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.666667 0.666667 1
+                metalness 0
+                textureTransform TextureTransform {
+                }
+              }
+              geometry Cylinder {
+                height 0.05
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  name "mybot"
+  boundingObject Shape {
+    geometry USE BODY
+  }
+  physics Physics {
+  }
+  controller "first_controller"
+  axleLength 0.15
 }
