@@ -3,17 +3,20 @@
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
+from controller import DifferentialWheels
 
 # create the Robot instance.
-robot = Robot()
+#robot = Robot()
+robot = DifferentialWheels()
 
 # get the time step of the current world.
-timestep = int(robot.getBasicTimeStep())
-leftMotor = robot.getMotor('left wheel')
-rightMotor = robot.getMotor('right wheel')
+#timestep = int(robot.getBasicTimeStep())
+timestep = 500
+#leftMotor = robot.getMotor('left wheel')
+#rightMotor = robot.getMotor('right wheel')
 
-leftMotor.setPosition(float('inf'))
-rightMotor.setPosition(float('inf'))
+#leftMotor.setPosition(float('inf'))
+#rightMotor.setPosition(float('inf'))
 
 
 
@@ -33,8 +36,9 @@ while robot.step(timestep) != -1:
 
     # Process sensor data here.
 
-    leftMotor.setVelocity(0.5)
-    rightMotor.setVelocity(0.5)
+    #leftMotor.setVelocity(0.5)
+    #rightMotor.setVelocity(0.5)
+    robot.setSpeed(0.5, 0.5)
 
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
