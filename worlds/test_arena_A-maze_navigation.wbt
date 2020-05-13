@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.06918721599736753 0.9386859380440338 0.3377600314734203 3.5215190625731907
-  position -0.7666817711848356 0.8333971144383547 -1.923956804660985
+  orientation -0.31457621116236323 -0.915240033185069 -0.2517488610224997 1.6655583874170843
+  position -3.0963297369059646 1.9837991069760927 -0.2939776527996557
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -115,18 +115,6 @@ DEF MAZE_WALLS Group {
       rotation 0 -1 0 1.5707896938995747
       name "maze wall custom(6)"
       length 0.88
-    }
-    MazeWall {
-      translation -0.840001 0.15 -0.035
-      rotation 0 -1 0 1.5707896938995747
-      name "maze wall custom(7)"
-      length 0.88
-    }
-    MazeWall {
-      translation -0.840003 0.15 -0.885
-      rotation 0 -1 0 1.5707896938995747
-      name "maze wall custom(8)"
-      length 0.8
     }
     MazeWall {
       translation -1.29 0.15 -1.36
@@ -262,297 +250,8 @@ DEF MAZE_WALLS Group {
     }
   ]
 }
-DifferentialWheels {
-  translation -0.576894 0.07 0.00886946
-  children [
-    Transform {
-      translation 0 0.0015 0
-      children [
-        Shape {
-          appearance PBRAppearance {
-          }
-          geometry DEF BODY Cylinder {
-            height 0.12
-            radius 0.075
-          }
-        }
-      ]
-    }
-    Solid {
-      translation 0.08 -0.04 0
-      rotation 1 0 0 0
-      children [
-        DEF WHEEL Transform {
-          rotation 0 0 1 1.57
-          children [
-            Shape {
-              appearance PBRAppearance {
-              }
-              geometry Cylinder {
-                height 0.01
-                radius 0.025
-              }
-            }
-          ]
-        }
-      ]
-      name "left wheel"
-    }
-    Solid {
-      translation -0.08 -0.04 0
-      children [
-        USE WHEEL
-      ]
-      name "right wheel"
-    }
-    DistanceSensor {
-      translation -0.0025945 0.05 -0.080645
-      rotation 0 1 0 1.5708
-      children [
-        DEF INFRARED Transform {
-          rotation 0 0 1 1.5708
-          children [
-            Shape {
-              appearance PBRAppearance {
-                metalness 0.2
-              }
-              geometry Cylinder {
-                height 0.004
-                radius 0.008
-              }
-            }
-          ]
-        }
-      ]
-      name "ir0"
-      lookupTable [
-        0 1024 0
-        0.05 1024 0
-        0.15 0 0
-      ]
-    }
-    DistanceSensor {
-      translation 0.0552495 0.05 -0.0584107
-      rotation 0 -1 0 -1.047195307179586
-      children [
-        USE INFRARED
-      ]
-      name "ir1"
-    }
-    DistanceSensor {
-      translation 0.08 0.05 -0.03
-      rotation 0 1 0 0.261799
-      children [
-        USE INFRARED
-      ]
-      name "ir2"
-    }
-    DistanceSensor {
-      translation 0.0586602 0.05 0.055
-      rotation 0 -1 0 0.785396
-      children [
-        USE INFRARED
-      ]
-      name "ir3"
-    }
-    DistanceSensor {
-      translation 0.00330149 0.05 0.0776794
-      rotation 0 -1 0 1.5708
-      children [
-        USE INFRARED
-      ]
-      name "ir4"
-    }
-    DistanceSensor {
-      translation -0.0548891 0.05 0.0515244
-      rotation 0 1 0 -2.6179953071795863
-      children [
-        USE INFRARED
-      ]
-      name "ir5"
-    }
-    DistanceSensor {
-      translation -0.0825882 0.05 -0.0303408
-      rotation 0 1 0 2.87979
-      children [
-        USE INFRARED
-      ]
-      name "ir6"
-    }
-    DistanceSensor {
-      translation -0.0513397 0.05 -0.065
-      rotation 0 1 0 2.09439
-      children [
-        USE INFRARED
-      ]
-      name "ir7"
-    }
-    Solid {
-      translation 0 -0.02 0
-      children [
-        Camera {
-          translation 0 0.11 -0.07
-          rotation 1 0 0 0
-          children [
-            Shape {
-              appearance PBRAppearance {
-                baseColor 0.666667 0.666667 1
-                metalness 0
-                textureTransform TextureTransform {
-                }
-              }
-              geometry Cylinder {
-                height 0.05
-                radius 0.01
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-  name "mybot"
-  boundingObject Shape {
-    geometry USE BODY
-  }
-  physics Physics {
-  }
-  controller "first_controller"
-  axleLength 0.15
-}
-Robot {
-  translation -0.624782 0.04 -0.299686
-  rotation 0 1 0 3.14159
-  children [
-    DistanceSensor {
-      translation 0.03 0 0.1
-      rotation 0 1 0 5.01239
-      children [
-        DEF ds_shape Shape {
-          appearance PBRAppearance {
-            baseColor 0.335027 0.782193 0.998871
-            metalness 0
-          }
-          geometry Box {
-            size 0.01 0.01 0.01
-          }
-        }
-      ]
-      name "ds_left"
-    }
-    DistanceSensor {
-      translation -0.03 0 0.1
-      rotation 0 1 0 4.41239
-      children [
-        USE ds_shape
-      ]
-      name "ds_right"
-    }
-    HingeJoint {
-      jointParameters HingeJointParameters {
-        anchor 0.06 0 0.05
-      }
-      device [
-        RotationalMotor {
-          name "wheel1"
-        }
-      ]
-      endPoint DEF WHEEL1 Solid {
-        translation 0.06 0 0.05
-        rotation 0 0 1 1.5707999999999998
-        children [
-          DEF WHEEL Shape {
-            appearance PBRAppearance {
-              baseColor 0.188266 0.828885 0.230488
-              metalness 0
-            }
-            geometry Cylinder {
-              height 0.02
-              radius 0.04
-            }
-          }
-        ]
-        name "solid(1)"
-        boundingObject USE WHEEL
-        physics DEF WHEEL_PH Physics {
-        }
-      }
-    }
-    HingeJoint {
-      jointParameters HingeJointParameters {
-        anchor 0.06 0 -0.05
-      }
-      device [
-        RotationalMotor {
-          name "wheel3"
-        }
-      ]
-      endPoint DEF WHEEL3 Solid {
-        translation 0.06 0 -0.05
-        rotation 0 0 1 1.5707999999999998
-        children [
-          USE WHEEL
-        ]
-        name "solid(2)"
-        boundingObject USE WHEEL
-        physics USE WHEEL_PH
-      }
-    }
-    HingeJoint {
-      jointParameters HingeJointParameters {
-        anchor -0.06 0 0.05
-      }
-      device [
-        RotationalMotor {
-          name "wheel2"
-        }
-      ]
-      endPoint DEF WHEEL2 Solid {
-        translation -0.06 0 0.05
-        rotation 0 0 1 1.5707999999999998
-        children [
-          USE WHEEL
-        ]
-        name "solid(2)"
-        boundingObject USE WHEEL
-        physics USE WHEEL_PH
-      }
-    }
-    HingeJoint {
-      jointParameters HingeJointParameters {
-        anchor -0.06 0 -0.05
-      }
-      device [
-        RotationalMotor {
-          name "wheel4"
-        }
-      ]
-      endPoint DEF WHEEL4 Solid {
-        translation -0.06 0 -0.05
-        rotation 0 0 1 1.5707999999999998
-        children [
-          USE WHEEL
-        ]
-        boundingObject USE WHEEL
-        physics USE WHEEL_PH
-      }
-    }
-    Shape {
-      appearance PBRAppearance {
-        baseColor 0.986252 0.00712596 0.0274357
-        metalness 0
-      }
-      geometry Box {
-        size 0.1 0.05 0.2
-      }
-    }
-  ]
-  physics Physics {
-  }
-  controller "four_wheels_collision_avoidance"
-}
-Robot {
-  translation -0.571714 0.08 -0.752613
+DEF KAZ Robot {
+  translation -0.381714 0.08 -0.752613
   rotation 0 1 0 3.14159
   children [
     DistanceSensor {
@@ -706,7 +405,7 @@ Robot {
         physics USE wheel_ph
       }
     }
-    Shape {
+    DEF BODY Shape {
       appearance PBRAppearance {
         baseColor 1 0.999969 0.999985
         baseColorMap ImageTexture {
@@ -721,8 +420,53 @@ Robot {
         radius 0.075
       }
     }
+    Solid {
+      translation 0 -0.055 -0.08
+      scale 0.2 0.2 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Capsule {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject Capsule {
+        height 0.1
+        radius 0.05
+        subdivision 16
+      }
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0 -0.055 0.08
+      scale 0.2 0.2 0.2
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Capsule {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject Capsule {
+        height 0.1
+        radius 0.05
+        subdivision 16
+      }
+      physics Physics {
+      }
+    }
   ]
-  name "robot(1)"
+  name "KAZ"
+  boundingObject USE BODY
   physics Physics {
   }
   controller "our_controller"
