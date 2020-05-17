@@ -74,11 +74,11 @@ def obs_avoidance():
             rightSpeed = 5.0
             
         else:  # read sensors
-            if ds[0].getValue() < 950.0:
+            if ds[0].getValue() < 10:
                 f_ObstacleCounter = 7
-            elif ds[1].getValue() < 950.0:
+            elif ds[1].getValue() < 10:
                 fl_ObstacleCounter = 7 
-            elif ds[3].getValue() < 950.0:
+            elif ds[3].getValue() < 10:
                 fr_ObstacleCounter = 7  
             else:
                 move_counter += 1
