@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.31457621116236323 -0.915240033185069 -0.2517488610224997 1.6655583874170843
-  position -3.0963297369059646 1.9837991069760927 -0.2939776527996557
+  orientation 0.9117884566926202 0.39614728401447263 0.10820877787890812 5.70104383801308
+  position -1.234840569352993 3.9840688829317146 5.215105890483862
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -115,6 +115,18 @@ DEF MAZE_WALLS Group {
       rotation 0 -1 0 1.5707896938995747
       name "maze wall custom(6)"
       length 0.88
+    }
+    MazeWall {
+      translation -0.840001 0.15 -0.035
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(7)"
+      length 0.88
+    }
+    MazeWall {
+      translation -0.840003 0.15 -0.885
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(8)"
+      length 0.8
     }
     MazeWall {
       translation -1.29 0.15 -1.36
@@ -251,7 +263,7 @@ DEF MAZE_WALLS Group {
   ]
 }
 DEF KAZ Robot {
-  translation -0.381714 0.08 -0.752613
+  translation -1.51193 0.08 1.52779
   rotation 0 1 0 3.14159
   children [
     DistanceSensor {
