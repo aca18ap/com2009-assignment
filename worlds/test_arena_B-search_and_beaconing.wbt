@@ -2,9 +2,19 @@
 WorldInfo {
   basicTimeStep 16
 }
+StartZone {
+  translation -1.46673 8.52651e-14 1.4733
+  rotation 0 1 0 3.14159
+  colour 0 0.5 0
+}
+StartZone {
+  translation 1.4727 0 -1.44085
+  colour 0 0 0.5
+  name "start zone(1)"
+}
 Viewpoint {
-  orientation 0.9927887691954626 -0.10968201096723379 -0.048376814999979055 5.447031382954491
-  position 0.2748265863457984 7.433437946561452 5.778511300759535
+  orientation 0.9957720410238028 0.0771297387790684 0.049890336851566235 5.131021275803868
+  position -1.3495215121902842 4.7185872581493555 2.427961314983092
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -26,6 +36,12 @@ Floor {
     roughness 1
     metalness 0
   }
+}
+StartZone {
+  translation -0.872974 0 -1.46253
+  rotation 0 1 0 -1.5707953071795862
+  colour 0 0.5 0.5
+  name "start zone(2)"
 }
 DEF ARENA_WALLS Group {
   children [
@@ -223,7 +239,7 @@ DEF BEACONS Group {
   ]
 }
 DEF KAZ Robot {
-  translation -1.45944 0.08 1.50491
+  translation -1.46213 0.08 1.48125
   rotation 0 1 0 3.14159
   children [
     DistanceSensor {
@@ -340,7 +356,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation 0 0 1 1.5707999999999998
+        rotation 3.925223937639763e-16 -7.850447875279524e-17 1 1.570799999999998
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -369,7 +385,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation 0 0 1 1.5707999999999998
+        rotation -1.962611968819883e-15 3.1401791501118127e-16 1 1.570799999999996
         children [
           USE wheel
         ]
@@ -441,5 +457,5 @@ DEF KAZ Robot {
   boundingObject USE BODY
   physics Physics {
   }
-  controller "our_controller"
+  controller "obstacles_avoidance"
 }
