@@ -90,21 +90,14 @@ while robot.step(TIME_STEP) != -1:
     leftSpeed= leftMotor.getVelocity()
 
     L = sensors[7]
-    R = sensors[2]
+    R = sensors[1]
     
 
-    if R < 10:
-        leftMotor.setVelocity(2)
-        rightMotor.setVelocity(3)
-    elif R > 15:
-        leftMotor.setVelocity(3)
-        rightMotor.setVelocity(2)
-    else: 
-        setSpeed(3)
-
+    
+    
 
     print("Front: ", sensors[0])
-    print("Right: ", R)
+    print("Right: ", R, " :: Left: ", L)
     
     
     pass
