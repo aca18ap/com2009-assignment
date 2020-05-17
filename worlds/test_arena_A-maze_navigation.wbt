@@ -93,21 +93,21 @@ DEF MAZE_WALLS Group {
       length 0.44
     }
     MazeWall {
-      translation -1.525 0.15 0.395
+      translation -1.52 0.15 0.400001
       rotation 0 -1 0 -5.307179586466759e-06
       name "maze wall custom(3)"
+      length 0.44
+    }
+    MazeWall {
+      translation -1.52 0.15 -0.499999
+      rotation 0 -1 0 -5.307179586466759e-06
+      name "maze wall custom(5)"
       length 0.44
     }
     MazeWall {
       translation -1.08 0.15 -0.05
       rotation 0 -1 0 -5.307179586466759e-06
       name "maze wall custom(4)"
-      length 0.44
-    }
-    MazeWall {
-      translation -1.525 0.15 -0.509999
-      rotation 0 -1 0 -5.307179586466759e-06
-      name "maze wall custom(5)"
       length 0.44
     }
     MazeWall {

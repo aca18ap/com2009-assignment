@@ -65,7 +65,7 @@ def findClosest():
     sensors = getSensors()
     tmp = 0
     for i in range(len(sensors)):
-        if sensors[i] > sensors[tmp]:
+        if sensors[i] < sensors[tmp]:
             tmp = i
     return(i)            
 
@@ -74,7 +74,7 @@ def findFurthest():
     sensors = getSensors()
     tmp = 0
     for i in range(len(sensors)):
-        if sensors[i] < sensors[tmp]:
+        if sensors[i] > sensors[tmp]:
             tmp = i
     return(i)  
 
@@ -85,17 +85,26 @@ while robot.step(TIME_STEP) != -1:
     # Read the sensors:
     # Enter here functions to read sensor data, like:
     #  val = ds.getValue()
-    setSpeed(5)
-    
+    sensors = getSensors()
+    rightSpeed = rightMotor.getVelocity()
+    leftSpeed= leftMotor.getVelocity()
+
+    L = sensors[7]
+    R = sensors[2]
     
 
-    # Process sensor data here.
+    if R < 10:
+        leftMotor.setVelocity(2)
+        rightMotor.setVelocity(3)
+    elif R > 15:
+        leftMotor.setVelocity(3)
+        rightMotor.setVelocity(2)
+    else: 
+        setSpeed(3)
 
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
-    print("Right motor speed: ", rightMotor.getVelocity())
-    print("Left motor speed: ", leftMotor.getVelocity())
-    print("Front sensor value: ", val[0])
+
+    print("Front: ", sensors[0])
+    print("Right: ", R)
     
     
     pass

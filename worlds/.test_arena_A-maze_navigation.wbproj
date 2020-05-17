@@ -10,6 +10,6 @@ viewpointLocked: 0
 orthographicViewHeight: 1
 textFiles: 1 "controllers/four_wheels_collision_avoidance/four_wheels_collision_avoidance.py" "controllers/maze_solver_v1/maze_solver_v1.py"
 globalOptionalRendering: DistanceSensorRays::CameraFrustums
-renderingDevicePerspectives: KAZ:camera;1;1.65625;0;0
 renderingDevicePerspectives: mybot:camera;1;1;0;0
 renderingDevicePerspectives: robot(1):camera;1;1;0;0
+renderingDevicePerspectives: KAZ:camera;1;1.65625;0;0
