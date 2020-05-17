@@ -9,6 +9,6 @@ renderingMode: PLAIN
 selectionDisabled: 0
 viewpointLocked: 0
 orthographicViewHeight: 1
-textFiles: 3 "controllers/our_controller/our_controller.py" "controllers/obstacles_avoidance/obstacles_avoidance.py" "worlds/test_arena_B-search_and_beaconing.wbt" "worlds/test_arena_A-maze_navigation.wbt"
+textFiles: 2 "controllers/our_controller/our_controller.py" "controllers/obstacles_avoidance/obstacles_avoidance.py" "worlds/test_arena_B-search_and_beaconing.wbt" "worlds/test_arena_A-maze_navigation.wbt"
 globalOptionalRendering: CameraFrustums::DistanceSensorRays
 renderingDevicePerspectives: KAZ:camera;1;1;0;0
