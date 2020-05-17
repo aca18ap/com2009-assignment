@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.31457621116236323 -0.915240033185069 -0.2517488610224997 1.6655583874170843
-  position -3.0963297369059646 1.9837991069760927 -0.2939776527996557
+  orientation -0.9969540800631409 -0.02898454750733933 0.07240482201656957 0.8545266610177583
+  position -0.19963846064770968 5.886138283358989 5.291231538958655
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -251,7 +251,7 @@ DEF MAZE_WALLS Group {
   ]
 }
 DEF KAZ Robot {
-  translation -0.381714 0.08 -0.752613
+  translation -1.51171 0.08 1.56739
   rotation 0 1 0 3.14159
   children [
     DistanceSensor {
@@ -368,7 +368,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation 0 0 1 1.5707999999999998
+        rotation 3.794423464852352e-09 -3.794437360145093e-09 1 1.5707999999999995
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -397,7 +397,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation 0 0 1 1.5707999999999998
+        rotation 3.815046611046833e-09 -3.815060722226888e-09 1 1.570799999999999
         children [
           USE wheel
         ]
@@ -469,5 +469,5 @@ DEF KAZ Robot {
   boundingObject USE BODY
   physics Physics {
   }
-  controller "our_controller"
+  controller "maze_solver_v1"
 }
