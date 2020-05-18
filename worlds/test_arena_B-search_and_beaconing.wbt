@@ -13,8 +13,8 @@ StartZone {
   name "start zone(1)"
 }
 Viewpoint {
-  orientation 0.9957720410238028 0.0771297387790684 0.049890336851566235 5.131021275803868
-  position -1.3495215121902842 4.7185872581493555 2.427961314983092
+  orientation 0.07241496210063383 0.7417041715202559 0.666806565064723 3.302343229611747
+  position -1.2850239790153961 2.3263230214188315 1.0960686056825804
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -239,7 +239,7 @@ DEF BEACONS Group {
   ]
 }
 DEF KAZ Robot {
-  translation -1.45799 0.08 1.48846
+  translation -1.4642 0.08 1.51873
   rotation 0 1 0 3.14159
   children [
     DistanceSensor {
@@ -268,12 +268,12 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation 0.0517 0.04 0.0617
-      rotation 0 -1 0 0.785401
+      translation 0.0207056 0.04 0.0772743
+      rotation 0 1 0 -1.3089969389957472
       children [
         USE dist_s
       ]
-      name "ds_FL"
+      name "ds_FL15"
       lookupTable [
         0 0 0
         0.05 5 0.1
@@ -285,11 +285,12 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation 0.08 0.04 0
+      translation 0.04 0.04 0.0692823
+      rotation 0 1 0 -1.0471975511965976
       children [
         USE dist_s
       ]
-      name "ds_left"
+      name "ds_FL30"
       lookupTable [
         0 0 0
         0.05 5 0.1
@@ -301,12 +302,12 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation -0.0517 0.04 0.0617
-      rotation 0 1 0 -2.3561953071795863
+      translation 0.0565687 0.04 0.0565687
+      rotation 0 1 0 -0.7853981633974483
       children [
         USE dist_s
       ]
-      name "ds_FR"
+      name "ds_FL45"
       lookupTable [
         0 0 0
         0.05 5 0.1
@@ -318,28 +319,12 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation -0.08 0.04 0
-      rotation 0 1 0 3.14159
+      translation 0.0692823 0.04 0.04
+      rotation 0 1 0 -0.5235987755982988
       children [
         USE dist_s
       ]
-      name "ds_right"
-      lookupTable [
-        0 0 0
-        0.5 5 0.1
-        0.1 10 0.1
-        0.2 20 0.1
-        0.3 30 0.1
-      ]
-      type "sonar"
-    }
-    DistanceSensor {
-      translation -0.0517 0.04 -0.0617
-      rotation 0 -1 0 -2.3561953071795863
-      children [
-        USE dist_s
-      ]
-      name "ds_BR"
+      name "ds_FL60"
       lookupTable [
         0 0 0
         0.05 5 0.1
@@ -351,12 +336,97 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation 0.0517 0.04 -0.0617
-      rotation 0 -1 0 -0.7854053071795866
+      translation -0.0206815 0.04 0.0744582
+      rotation 0 1 0 -1.8325957145940461
       children [
         USE dist_s
       ]
-      name "ds_BL"
+      name "ds_FR15"
+      lookupTable [
+        0 0 0
+        0.05 5 0.1
+        0.1 10 0.1
+        0.2 20 0.1
+        0.3 30 0.1
+        0.5 50 0.1
+      ]
+      type "sonar"
+    }
+    DistanceSensor {
+      translation -0.0400001 0.04 0.0692823
+      rotation 0 1 0 -2.0943951023931953
+      children [
+        USE dist_s
+      ]
+      name "ds_FR30"
+      lookupTable [
+        0 0 0
+        0.05 5 0.1
+        0.1 10 0.1
+        0.2 20 0.1
+        0.3 30 0.1
+        0.5 50 0.1
+      ]
+      type "sonar"
+    }
+    DistanceSensor {
+      translation -0.0565687 0.04 0.0565687
+      rotation 0 1 0 -2.356194490192345
+      children [
+        USE dist_s
+      ]
+      name "ds_FR45"
+      lookupTable [
+        0 0 0
+        0.05 5 0.1
+        0.1 10 0.1
+        0.2 20 0.1
+        0.3 30 0.1
+        0.5 50 0.1
+      ]
+      type "sonar"
+    }
+    DistanceSensor {
+      translation -0.0692823 0.04 0.04
+      rotation 0 1 0 -2.6179938779914944
+      children [
+        USE dist_s
+      ]
+      name "ds_FR60"
+      lookupTable [
+        0 0 0
+        0.05 5 0.1
+        0.1 10 0.1
+        0.2 20 0.1
+        0.3 30 0.1
+        0.5 50 0.1
+      ]
+      type "sonar"
+    }
+    DistanceSensor {
+      translation 0 0.04 0
+      rotation 0 1 0 -3.6651914291880923
+      children [
+        USE dist_s
+      ]
+      name "ds_BR60"
+      lookupTable [
+        0 0 0
+        0.05 5 0.1
+        0.1 10 0.1
+        0.2 20 0.1
+        0.3 30 0.1
+        0.5 50 0.1
+      ]
+      type "sonar"
+    }
+    DistanceSensor {
+      translation 0 0.04 0
+      rotation 0 1 0 -5.759586531581287
+      children [
+        USE dist_s
+      ]
+      name "ds_BL60"
       lookupTable [
         0 0 0
         0.05 5 0.1
@@ -528,5 +598,5 @@ DEF KAZ Robot {
   boundingObject USE BODY
   physics Physics {
   }
-  controller "maze_solver_v1"
+  controller "obstacles_avoidance"
 }
