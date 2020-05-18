@@ -8,9 +8,9 @@ TIME_STEP = 64
 robot = Robot()
 
 ds = []
-dsNames = ['ds_front', 'ds_FL', 'ds_left', 'ds_FR', 'ds_right', 'ds_BR', 'ds_BL', 'ds_back']
+dsNames = ['ds_front', 'ds_FL15', 'ds_FL30', 'ds_FL45', 'ds_FL60', 'ds_FR15', 'ds_FR30', 'ds_FR45', 'ds_FR60', 'ds_BR60', 'ds_BL60', 'ds_back']
 
-for i in range(8):
+for i in range(12):
     
     ds.append(robot.getDistanceSensor(dsNames[i]))
     ds[i].enable(TIME_STEP)
@@ -76,9 +76,9 @@ def obs_avoidance():
         else:  # read sensors
             if ds[0].getValue() < 10:
                 f_ObstacleCounter = 7
-            elif ds[1].getValue() < 10:
+            elif ds[3].getValue() < 10 or ds[1].getValue() < 10 or ds[2].getValue() < 10:
                 fl_ObstacleCounter = 7 
-            elif ds[3].getValue() < 10:
+            elif ds[7].getValue() < 10 or ds[5].getValue() < 10 or ds[6].getValue() < 10:
                 fr_ObstacleCounter = 7  
             else:
                 move_counter += 1
