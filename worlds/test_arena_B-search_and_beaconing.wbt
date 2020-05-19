@@ -13,8 +13,8 @@ StartZone {
   name "start zone(1)"
 }
 Viewpoint {
-  orientation 0.07241496210063383 0.7417041715202559 0.666806565064723 3.302343229611747
-  position -1.2850239790153961 2.3263230214188315 1.0960686056825804
+  orientation 0.17273226434469185 0.934260556119644 0.31196278325045257 4.096368798247596
+  position -4.255550515099694 3.227999153683365 -2.6677588722966274
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -239,8 +239,8 @@ DEF BEACONS Group {
   ]
 }
 DEF KAZ Robot {
-  translation -1.4642 0.08 1.51873
-  rotation 0 1 0 3.14159
+  translation -0.880656 0.08 -1.46749
+  rotation 0 1 0 -1.5707953071795862
   children [
     DistanceSensor {
       translation 0 0.04 0.08
@@ -336,7 +336,7 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation -0.0206815 0.04 0.0744582
+      translation -0.0207056 0.04 0.0772741
       rotation 0 1 0 -1.8325957145940461
       children [
         USE dist_s
@@ -404,7 +404,7 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation 0 0.04 0
+      translation -0.0692823 0.04 -0.04
       rotation 0 1 0 -3.6651914291880923
       children [
         USE dist_s
@@ -421,7 +421,7 @@ DEF KAZ Robot {
       type "sonar"
     }
     DistanceSensor {
-      translation 0 0.04 0
+      translation 0.0692823 0.04 -0.04
       rotation 0 1 0 -5.759586531581287
       children [
         USE dist_s

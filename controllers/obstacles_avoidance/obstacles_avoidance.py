@@ -23,7 +23,7 @@ for i in range(2):
     wheels.append(robot.getMotor(wheelsNames[i]))
     wheels[i].setPosition(float('inf'))
     wheels[i].setVelocity(0.0)
-
+                   
 
 def obs_avoidance():
 
@@ -34,13 +34,30 @@ def obs_avoidance():
     turnR = True
     move_counter = 0
     adjust = 0
+    init = True
+    duration1 = 10
+    duration2 = 10
     
     while robot.step(TIME_STEP) != -1:
         
         leftSpeed = 7
         rightSpeed = 7
+                 
         
-        if adjust > 0:
+        if init == True:
+            if duration1 > 0:
+                duration1 -= 1   
+                leftSpeed = 5.0
+                rightSpeed = -5.0
+            elif duration2 > 0:
+                duration2 -= 1   
+                leftSpeed = -5.0
+                rightSpeed = 5.0
+                
+            else :
+                init = False   
+        
+        elif adjust > 0:
             adjust -= 1
             leftSpeed = -3.4
             rightSpeed = 3.4
@@ -76,9 +93,9 @@ def obs_avoidance():
         else:  # read sensors
             if ds[0].getValue() < 10:
                 f_ObstacleCounter = 7
-            elif ds[3].getValue() < 10 or ds[1].getValue() < 10 or ds[2].getValue() < 10:
+            elif ds[3].getValue() < 10 or ds[1].getValue() < 10 or ds[2].getValue() < 10 or ds[4].getValue() < 10:
                 fl_ObstacleCounter = 7 
-            elif ds[7].getValue() < 10 or ds[5].getValue() < 10 or ds[6].getValue() < 10:
+            elif ds[7].getValue() < 10 or ds[5].getValue() < 10 or ds[6].getValue() < 10 or ds[8].getValue() < 10:
                 fr_ObstacleCounter = 7  
             else:
                 move_counter += 1
@@ -88,7 +105,8 @@ def obs_avoidance():
                     
         wheels[0].setVelocity(leftSpeed)
         wheels[1].setVelocity(rightSpeed)
-    
+
+   
 obs_avoidance()
     
 
