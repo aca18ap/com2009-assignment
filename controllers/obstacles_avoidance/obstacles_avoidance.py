@@ -59,13 +59,13 @@ def obs_avoidance():
         
         elif adjust > 0:
             adjust -= 1
-            leftSpeed = -3.4
-            rightSpeed = 3.4
+            leftSpeed = -2.8
+            rightSpeed = 2.8
         
         elif f_ObstacleCounter > 0 and turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = -5.0
-            rightSpeed = 5.0
+            leftSpeed = -4.0
+            rightSpeed = 4.0
             turn_counter += 1
             if turn_counter == 10:
                turnL = False
@@ -73,8 +73,8 @@ def obs_avoidance():
                
         elif f_ObstacleCounter > 0 and not turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = 5.0
-            rightSpeed = -5.0
+            leftSpeed = 4.0
+            rightSpeed = -4.0
             turn_counter += 1
             if turn_counter == 10:
                turnL = True
