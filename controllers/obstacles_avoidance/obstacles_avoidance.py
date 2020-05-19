@@ -31,7 +31,7 @@ def obs_avoidance():
     fl_ObstacleCounter = 0
     fr_ObstacleCounter = 0
     turn_counter = 0
-    turnR = True
+    turnL = True
     move_counter = 0
     adjust = 0
     init = True
@@ -40,8 +40,8 @@ def obs_avoidance():
     
     while robot.step(TIME_STEP) != -1:
         
-        leftSpeed = 7
-        rightSpeed = 7
+        leftSpeed = 13
+        rightSpeed = 13
                  
         
         if init == True:
@@ -62,22 +62,22 @@ def obs_avoidance():
             leftSpeed = -3.4
             rightSpeed = 3.4
         
-        elif f_ObstacleCounter > 0 and turnR:
-            f_ObstacleCounter -= 1
-            leftSpeed = 5.0
-            rightSpeed = -5.0
-            turn_counter += 1
-            if turn_counter == 10:
-               turnR = False
-               turn_counter = 0
-               
-        elif f_ObstacleCounter > 0 and not turnR:
+        elif f_ObstacleCounter > 0 and turnL:
             f_ObstacleCounter -= 1
             leftSpeed = -5.0
             rightSpeed = 5.0
             turn_counter += 1
             if turn_counter == 10:
-               turnR = True
+               turnL = False
+               turn_counter = 0
+               
+        elif f_ObstacleCounter > 0 and not turnL:
+            f_ObstacleCounter -= 1
+            leftSpeed = 5.0
+            rightSpeed = -5.0
+            turn_counter += 1
+            if turn_counter == 10:
+               turnL = True
                turn_counter = 0    
     
         elif fl_ObstacleCounter > 0:
