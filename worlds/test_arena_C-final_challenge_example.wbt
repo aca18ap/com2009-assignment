@@ -3,8 +3,9 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.999285215452142 0.008116872278518417 0.036921193956592636 1.1376906940406424
-  position -1.1270559475277495 3.550874547333668 2.028202695819676
+  orientation -0.9987232826687545 -0.019261003089414506 -0.04669923356262397 1.3637225135353996
+  position -1.3498222790320022 9.076016308535474 2.443937667534047
+  follow "KAZ"
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -18,7 +19,7 @@ Floor {
     baseColor 0.9 0.9 0.9
     baseColorMap ImageTexture {
       url [
-        "test_arena_A-textures/maze_navigation_test_arena.png"
+        "test_arena_C-textures/test_arena_C-final_challenge_example.png"
       ]
       repeatS FALSE
       repeatT FALSE
@@ -76,195 +77,256 @@ DEF ARENA_WALLS Group {
 DEF MAZE_WALLS Group {
   children [
     MazeWall {
-      translation -1.28682 0.149896 1.51987
-      rotation -5.368832363826609e-13 1 5.378248615255749e-13 1.5725453071795865
-      length 0.44
+      translation -0.932759 0.15 1.19519
+      rotation 0 -1 0 -5.307179586466759e-06
+      name "maze wall custom(30)"
+      length 0.66
     }
     MazeWall {
-      translation -1.2900000498134756 0.14989640641552515 1.0799443527219987
-      rotation 1.3915131351700063e-17 1 -2.062477784831657e-17 1.570800233149374
-      name "maze wall custom(1)"
-      length 0.44
-    }
-    MazeWall {
-      translation -1.0799999998107805 0.14989640641552515 0.8400000021027337
-      rotation 3.849466687242433e-12 -1 1.0970671576319852e-12 -5.324513837490391e-06
-      name "maze wall custom(2)"
-      length 0.44
-    }
-    MazeWall {
-      translation -1.5199999998107803 0.14989640641552515 0.40000100210273387
-      rotation -1.2403372054323572e-11 -1 1.1475318246865796e-13 -5.324513837476131e-06
-      name "maze wall custom(3)"
-      length 0.44
-    }
-    MazeWall {
-      translation -1.5199999998107803 0.14989640641552515 -0.4999989978972661
-      rotation 7.1187607749846066e-12 -1 3.5891241635226383e-13 -5.324513837480831e-06
-      name "maze wall custom(5)"
-      length 0.44
-    }
-    MazeWall {
-      translation -1.0799999998107803 0.14989640641552515 -0.049999997897265676
-      rotation -2.196323127676463e-11 -1 -3.138004343500376e-13 -5.324513837464777e-06
+      translation -0.266 0.15 1.19519
+      rotation 0 -1 0 -5.307179586466759e-06
       name "maze wall custom(4)"
-      length 0.44
+      length 0.66
     }
     MazeWall {
-      translation -0.8400000045144221 0.14979281283035542 0.8550000003737089
-      rotation -3.493121190884557e-18 -0.9999999999999999 -2.5408177021714117e-20 1.5707896774593442
-      name "maze wall custom(6)"
-      length 0.88
-    }
-    MazeWall {
-      translation -1.2900000039216462 0.1498187112267125 -1.3599999996718668
-      rotation 2.1387133504078117e-16 -1 2.151770324941136e-16 1.5707896771671133
-      name "maze wall custom(9)"
-      length 0.77
-    }
-    MazeWall {
-      translation -0.39400000392164763 0.1498187112267125 0.8970000003281331
-      rotation -7.864949386716374e-18 -1 -4.5717178663503055e-18 1.5707896771671133
-      name "maze wall custom(10)"
-      length 0.77
-    }
-    MazeWall {
-      translation -0.39400100510783914 0.14976691443395548 0.0010000004189199808
-      rotation 4.127545550413132e-17 -1 4.4354529204327034e-17 1.570789677757412
-      name "maze wall custom(11)"
-      length 0.99
-    }
-    MazeWall {
-      translation -0.834001 0.149767 -0.078998
-      rotation 4.127545550413132e-17 -1 4.4354529204327034e-17 1.570789677757412
-      name "maze wall custom(7)"
-      length 0.99
-    }
-    MazeWall {
-      translation 0.08500000039015969 0.14978339523166948 -0.485999995271218
-      rotation 1.0056242599580473e-08 -1 -5.2294141746801147e-11 -1.633198452140005e-08
-      name "maze wall custom(12)"
-      length 0.92
-    }
-    MazeWall {
-      translation -0.39400000397552515 0.14981635682704544 -1.3489999996677093
-      rotation -4.064242692777436e-17 -1 -4.0413849438827e-17 1.5707896771931131
-      name "maze wall custom(13)"
-      length 0.78
-    }
-    MazeWall {
-      translation -0.834 0.149816 -0.949
-      rotation -4.064242692777436e-17 -1 -4.0413849438827e-17 1.5707896771931131
-      name "maze wall custom(8)"
-      length 0.78
-    }
-    MazeWall {
-      translation -0.1549999998107812 0.14989640641552515 -0.9689999978972663
-      rotation -1.147267849231794e-12 -1 1.0994596527168176e-12 -5.324513837475858e-06
-      name "maze wall custom(14)"
-      length 0.44
-    }
-    MazeWall {
-      translation -0.15499499981078116 0.14989640641552515 1.271000002102735
-      rotation 1.4774094198131195e-12 -1 -5.089587630436867e-13 -5.324513837479353e-06
-      name "maze wall custom(15)"
-      length 0.44
-    }
-    MazeWall {
-      translation 0.055004997897266004 0.14989640641552515 1.029000000189223
-      rotation 5.917605760543178e-18 -1 2.6166378825400876e-18 1.5707896765653233
-      name "maze wall custom(16)"
-      length 0.44
-    }
-    MazeWall {
-      translation 0.5389999978972664 0.14989640641552515 1.5190000001892232
-      rotation -1.814630659225842e-17 -1 -2.0309565357899286e-17 1.5707896765653233
-      name "maze wall custom(17)"
-      length 0.44
-    }
-    MazeWall {
-      translation 0.8349999978972664 0.14989640641552515 0.6090000001892217
-      rotation 1.6872415587750845e-17 -1 1.4798125562739966e-17 1.5707896765653233
-      name "maze wall custom(18)"
-      length 0.44
-    }
-    MazeWall {
-      translation 0.44300000030729086 0.14983048322504242 0.8190000036507398
-      rotation -3.2159568483826824e-11 -1 -9.791783414491811e-14 -5.3240392620295145e-06
-      name "maze wall custom(19)"
-      length 0.72
-    }
-    MazeWall {
-      translation 0.9350000003198017 0.14982342002604554 1.309000003813595
-      rotation 1.44949680313331e-12 -1 4.443488973131057e-13 -5.323963538447004e-06
-      name "maze wall custom(20)"
-      length 0.75
-    }
-    MazeWall {
-      translation 1.2999999953784829 0.14978810403101314 0.8390000003819089
-      rotation 1.3860677152055723e-17 -1 1.632983602004748e-17 1.5707996775134097
-      name "maze wall custom(21)"
-      length 0.9
-    }
-    MazeWall {
-      translation 0.44500000034059334 0.1498116480277103 0.367000004083005
-      rotation -1.3332726262416473e-11 -0.9999999999999999 -1.3133815200263694e-13 -5.323833613465059e-06
-      name "maze wall custom(22)"
+      translation -0.330669 0.15 0.728322
+      rotation 0 -1 0 -5.307179586466759e-06
+      name "maze wall custom(1)"
       length 0.8
     }
     MazeWall {
-      translation 0.055999998229561004 0.14991053281344924 0.15900200016362237
-      rotation -9.030138758167775e-18 -1 -6.7968771322507675e-18 1.5707896765974958
+      translation 1.36481 0.15 0.875219
+      rotation 0 -1 0 -5.307179586466759e-06
       name "maze wall custom(23)"
-      length 0.38
+      length 0.74
     }
     MazeWall {
-      translation 0.08199999850509214 0.14992230481170937 -1.1239999998577836
-      rotation 4.054651578236684e-18 -1 4.4345835531954945e-18 1.5707896767114953
-      name "maze wall custom(24)"
-      length 0.33
+      translation -0.66605 0.15 0.277879
+      rotation 0 -1 0 -5.307179586466759e-06
+      name "maze wall custom(2)"
+      length 0.62
     }
     MazeWall {
-      translation 0.5359999969535372 0.14985638162133688 -1.4369999997388114
-      rotation -2.168231062285201e-17 -1 -2.3698340639831958e-17 1.570789676786524
-      name "maze wall custom(25)"
-      length 0.61
+      translation 0.0870684 0.15 0.796065
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(3)"
+      length 0.82
     }
     MazeWall {
-      translation 0.5349999969535371 0.14985638162133688 -0.8099999997388112
-      rotation 8.43859252148551e-17 -1 8.470304589065212e-17 1.570789676786524
-      name "maze wall custom(26)"
-      length 0.61
+      translation -1.279 0.15 1.002
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(7)"
+      length 0.4
     }
     MazeWall {
-      translation 0.5349999982295613 0.14991053281344924 -0.2699999998363779
-      rotation -1.3214177273893625e-17 -1 -1.294933461113661e-17 1.5707896765974958
-      name "maze wall custom(27)"
-      length 0.38
+      translation -1.04566 0.15 -0.15614
+      rotation 0 -1 0 0
+      name "maze wall custom(12)"
+      length 0.4
     }
     MazeWall {
-      translation 0.9350000003198017 0.14982342002604554 -0.08999999618640565
-      rotation -1.621390744077873e-11 -0.9999999999999999 -3.1792068278124527e-14 -5.323963538451266e-06
-      name "maze wall custom(28)"
-      length 0.75
+      translation -1.06153 0.15 -1.31031
+      rotation 0 -1 0 0
+      name "maze wall custom(15)"
+      length 0.49
     }
     MazeWall {
-      translation 1.3600000003198038 0.14982342002604554 -0.5459999961864057
-      rotation 2.6088410436971045e-11 -1 3.382160699777225e-13 -5.323963538449292e-06
-      name "maze wall custom(29)"
-      length 0.75
+      translation -0.679713 0.15 -0.588672
+      rotation 0 -1 0 0
+      name "maze wall custom(16)"
+      length 0.56
     }
     MazeWall {
-      translation 0.9300000003198017 0.14982342002604554 -0.9939999961864057
-      rotation 4.832869352308517e-12 -1 3.485860595869436e-13 -5.3239635384490095e-06
-      name "maze wall custom(30)"
-      length 0.75
+      translation 0.847773 0.15 -1.28252
+      rotation 0 -1 0 0
+      name "maze wall custom(17)"
+      length 0.59
+    }
+    MazeWall {
+      translation 1.45 0.15 -1.28252
+      rotation 0 -1 0 0
+      name "maze wall custom(18)"
+      length 0.59
+    }
+    MazeWall {
+      translation -1.133 0.15 0.537
+      rotation 0 -1 0 2.0943903061004256
+      name "maze wall custom(8)"
+      length 0.58
+    }
+    MazeWall {
+      translation -1.607 0.15 0.476863
+      rotation 0 -1 0 2.0943903061004256
+      name "maze wall custom(9)"
+      length 0.44
+    }
+    MazeWall {
+      translation 0.712987 0.15 -0.684227
+      rotation 0 -1 0 2.3561903061004252
+      name "maze wall custom(22)"
+      length 0.47
+    }
+    MazeWall {
+      translation -1.62645 0.15 0.0781876
+      rotation 0 -1 0 1.0471903061004253
+      name "maze wall custom(10)"
+      length 0.44
+    }
+    MazeWall {
+      translation -1.49524 0.15 -0.575253
+      rotation 0 -1 0 1.0471903061004253
+      name "maze wall custom(11)"
+      length 0.94
+    }
+    MazeWall {
+      translation -1.13865 0.15 -0.871298
+      rotation 0 -1 0 1.0471903061004253
+      name "maze wall custom(13)"
+      length 0.64
+    }
+    MazeWall {
+      translation 0.0870602 0.15 -0.041
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(5)"
+      length 0.82
+    }
+    MazeWall {
+      translation 0.0870518 0.15 -0.882
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(6)"
+      length 0.82
+    }
+    MazeWall {
+      translation -0.82561 0.15 -0.949159
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(19)"
+      length 0.68
+    }
+    MazeWall {
+      translation -0.377982 0.15 -1.39283
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(20)"
+      length 0.7
+    }
+    MazeWall {
+      translation -0.369193 0.15 -0.168428
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(21)"
+      length 0.86
+    }
+    MazeWall {
+      translation -1.29616 0.15 -1.22376
+      rotation 0 -1 0 1.5707896938995747
+      name "maze wall custom(14)"
+      length 0.13
     }
   ]
 }
+DEF BEACONS Group {
+  children [
+    DEF RED_CYL Solid {
+      translation 0.569462 0.2 0.456614
+      children [
+        DEF BCN_RED Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.4
+            radius 0.15
+          }
+        }
+      ]
+      boundingObject USE BCN_RED
+      physics DEF BCN_PHYS Physics {
+        density -1
+        mass 0.5
+      }
+      recognitionColors [
+        1 0 0
+      ]
+    }
+    DEF FCA_CYL Solid {
+      translation 1.45752 0.1 -0.328345
+      children [
+        DEF BCN_FCA Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.2
+            radius 0.2
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE BCN_FCA
+      physics USE BCN_PHYS
+      recognitionColors [
+        1 0 1
+      ]
+    }
+    DEF TEAL_BOX Solid {
+      translation -0.526973 0.2 1.48418
+      children [
+        DEF BCN_TEAL Shape {
+          appearance PBRAppearance {
+            baseColor 0 0.5 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.45 0.4 0.45
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE BCN_TEAL
+      physics USE BCN_PHYS
+      recognitionColors [
+        0 0.5 0.5
+      ]
+    }
+    DEF BLU_RECT Solid {
+      translation 1.5619 0.11 1.39198
+      rotation 0 1 0 1.5707996938995747
+      children [
+        DEF BCN_BLU Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.6 0.22 0.25
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject USE BCN_BLU
+      physics USE BCN_PHYS
+      recognitionColors [
+        0 0 0.5
+      ]
+    }
+  ]
+}
+StartZone {
+  translation -1.03729 0 1.48256
+  rotation 0 1 0 -1.5707996938995747
+  colour 0 0 0.5
+  name "start zone C"
+  recColSlot [
+    0 0 0.5
+  ]
+}
 DEF KAZ Robot {
-  translation -1.500649782684361 0.07470311691471888 1.5224488599431258
-  rotation -3.908815779587624e-09 1 4.272276209396055e-15 -3.141590501097717
+  translation -1.08065 0.0747031 1.44245
+  rotation -3.90883e-09 1 -3.90883e-09 -1.5707953071795862
   children [
     DistanceSensor {
       translation 0 0.04 0.08
@@ -522,7 +584,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation -9.954351043036749e-10 9.954382536436895e-10 1 1.570799999999999
+        rotation -9.954351534386497e-10 9.954382627919907e-10 1 1.570799999999999
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -552,7 +614,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation -4.981416144782964e-09 4.981434560762825e-09 1 1.570799999999999
+        rotation -4.981416145070952e-09 4.9814345603322366e-09 1 1.570799999999999
         children [
           USE wheel
         ]
