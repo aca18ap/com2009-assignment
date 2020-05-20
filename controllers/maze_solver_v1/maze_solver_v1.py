@@ -145,11 +145,7 @@ while robot.step(TIME_STEP) != -1:
                 leftMotor.setVelocity(default * 0.8)
             
        
-    
-
-    #print("R0= ", R0, "R1= ", R1, " || R2= ", R2, " || dist= ", dist)
-    
-    
+ 
     pass
 
 # Enter here exit cleanup code.
