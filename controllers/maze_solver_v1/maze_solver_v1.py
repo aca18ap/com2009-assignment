@@ -4,6 +4,7 @@
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
 import time 
+import math
 
 # create the Robot instance.
 robot = Robot()
@@ -18,12 +19,13 @@ MAX_SPEED = 6.28
 #  ds.enable(timestep)
 
 ds = []
-dsNames = ['ds_front', 'ds_FR',  'ds_right', 'ds_BR', 'ds_back', 'ds_BL', 'ds_left', 'ds_FL']
+dsNames = ['ds_front', 'ds_FL15', 'ds_FL30', 'ds_FL45', 'ds_FL60', 'ds_FR15', 'ds_FR30', 'ds_FR45', 'ds_FR60', 'ds_BR60', 'ds_BL60', 'ds_back']
 
-for i in range(8):
+for i in range(12):
+    
     ds.append(robot.getDistanceSensor(dsNames[i]))
     ds[i].enable(TIME_STEP)
-
+    
 wheels = []
 wheelsNames = ['left_wheel', 'right_wheel']
 
@@ -57,7 +59,7 @@ def turn(deg):
 
 def getSensors():
     val = []
-    for i in range(8):
+    for i in range(12):
         val.append(ds[i].getValue())
     return val
     
@@ -79,6 +81,8 @@ def findFurthest():
     return(i)  
 
 
+cos30 = math.sqrt(3)/2
+default = 6
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(TIME_STEP) != -1:
@@ -88,16 +92,62 @@ while robot.step(TIME_STEP) != -1:
     sensors = getSensors()
     rightSpeed = rightMotor.getVelocity()
     leftSpeed= leftMotor.getVelocity()
-
-    L = sensors[7]
-    R = sensors[1]
+    
+    front = ds[0].getValue()
+    R0 = ds[5].getValue()
+    R1 = ds[8].getValue() * cos30
+    R2 = ds[9].getValue() * cos30
+    
+    
+    
+    dist = (R1 + R2)/2
+    diff = R1 - R2
+    if front < 8 or R0 < 6 or R1 < 6:
+        halt()
+        print("obstacle ahead")
+        leftMotor.setVelocity(-1.5)
+        rightMotor.setVelocity(1.5)
+    else:
+        if dist < 40:
+            if dist < 10:
+                if dist < 7:
+                    print("way too close")
+                    leftMotor.setVelocity(-1)
+                    rightMotor.setVelocity(1)
+                else:
+                    print("too close")
+                    leftMotor.setVelocity(0)
+                    rightMotor.setVelocity(default)
+            else:
+                if R0 < 25:
+                    print("wall right ahead")
+                    leftMotor.setVelocity(default * 0.1)
+                    rightMotor.setVelocity(default * 1.5)
+                elif diff > 6:
+                    print("adj right")
+                    rightMotor.setVelocity(default * 0.3)
+                    leftMotor.setVelocity(default)
+                elif diff < -6:
+                    print("adj left")
+                    rightMotor.setVelocity(default)
+                    leftMotor.setVelocity(default * 0.3)
+                else:
+                    print("perfect")
+                    setSpeed(default * 1.5)
+        else:
+            if R2 < 35:
+                print("still turning")
+                rightMotor.setVelocity(default * 0.7)
+                leftMotor.setVelocity(default * 0.9)    
+            else:
+                print("too far")
+                rightMotor.setVelocity(rightSpeed * 0.6)
+                leftMotor.setVelocity(default * 0.8)
+            
+       
     
 
-    
-    
-
-    print("Front: ", sensors[0])
-    print("Right: ", R, " :: Left: ", L)
+    #print("R0= ", R0, "R1= ", R1, " || R2= ", R2, " || dist= ", dist)
     
     
     pass
