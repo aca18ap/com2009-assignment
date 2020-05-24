@@ -3,6 +3,7 @@
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
+from controller import Camera
 
 TIME_STEP = 64
 robot = Robot()
@@ -117,12 +118,15 @@ def obs_avoidance():
     duration1 = 10
     duration2 = 10
     colorToFind = ""
+    turn_around = 0
+    adjust_acount = 0
+    aTurnL = True
     
     
     while robot.step(TIME_STEP) != -1:
         
-        leftSpeed = 13
-        rightSpeed = 13
+        leftSpeed = 9.5
+        rightSpeed = 9.5
                  
         currentColor = check_central_colour()
         
@@ -141,18 +145,28 @@ def obs_avoidance():
             else :
                 init = False   
         
+               
+         
+        elif turn_around > 0:
+            turn_around -= 1
+            leftSpeed = -4.0
+            rightSpeed = 4.0    
         
-        elif (currentColor == colorToFind) and (ds[0].getValue() < 10):         
-            wheels[0].setVelocity(0)
-            wheels[1].setVelocity(0)
-            print("target found")
-            break
-            
-        
-        elif adjust > 0:
+        elif adjust > 0 and aTurnL:
             adjust -= 1
-            leftSpeed = -2.8
-            rightSpeed = 2.8
+            leftSpeed = -2.9
+            rightSpeed = 2.9 
+            if adjust_acount == 7 and adjust ==0:
+              aTurnL = False
+              adjust_acount = 0
+              
+        elif adjust > 0 and not aTurnL:
+            adjust -= 1
+            leftSpeed = 2.9
+            rightSpeed = -2.9 
+            if adjust_acount == 7 and adjust ==0:
+              aTurnL = True
+              adjust_acount = 0     
         
         elif f_ObstacleCounter > 0 and turnL:
             f_ObstacleCounter -= 1
@@ -183,16 +197,20 @@ def obs_avoidance():
             rightSpeed = 5.0
             
         else:  # read sensors
-            if ds[0].getValue() < 10:
-                f_ObstacleCounter = 7
-            elif ds[3].getValue() < 10 or ds[1].getValue() < 10 or ds[2].getValue() < 10 or ds[4].getValue() < 10:
-                fl_ObstacleCounter = 7 
-            elif ds[7].getValue() < 10 or ds[5].getValue() < 10 or ds[6].getValue() < 10 or ds[8].getValue() < 10:
-                fr_ObstacleCounter = 7  
+            if (ds[2].getValue() < 20 and ds[6].getValue() < 20) or (ds[1].getValue() < 20 and ds[5].getValue() < 20) or (ds[3].getValue() < 20 and ds[7].getValue() < 20):
+                print("turn_around")
+                turn_around = 17.5          
+            elif ds[0].getValue() < 20:
+                f_ObstacleCounter = 4.2
+            elif ds[3].getValue() < 20 or ds[1].getValue() < 20 or ds[2].getValue() < 20 or ds[4].getValue() < 20:
+                fl_ObstacleCounter = 4.2 
+            elif ds[7].getValue() < 20 or ds[5].getValue() < 20 or ds[6].getValue() < 20 or ds[8].getValue() < 20:
+                fr_ObstacleCounter = 4.2  
             else:
                 move_counter += 1
-                if move_counter == 50:
-                    adjust = 4
+                if move_counter == 9:
+                    adjust = 2
+                    adjust_acount += 1
                     move_counter = 0     
                     
         wheels[0].setVelocity(leftSpeed)
@@ -200,7 +218,3 @@ def obs_avoidance():
 
    
 obs_avoidance()
-    
-
-        
-# Enter here exit cleanup code.

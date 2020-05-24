@@ -3,7 +3,7 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.9987862930081622 0.04595283709691665 -0.017727878095184887 0.8822032049366304
+  orientation -0.9913334767384697 -0.10093513287601137 -0.08408351115956135 0.7566265255428346
   position -1.329440822587527 5.568597825508772 5.057424488126333
   follow "KAZ"
   followType "Pan and Tilt Shot"
@@ -584,7 +584,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation -9.954351926908867e-10 9.954383805487066e-10 1 1.570799999999999
+        rotation -9.954351926908856e-10 9.954383805487062e-10 1 1.570799999999999
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
