@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.9987232826687545 -0.019261003089414506 -0.04669923356262397 1.3637225135353996
-  position -1.3498222790320022 9.076016308535474 2.443937667534047
+  orientation -0.9987862930081622 0.04595283709691665 -0.017727878095184887 0.8822032049366304
+  position -1.329440822587527 5.568597825508772 5.057424488126333
   follow "KAZ"
   followType "Pan and Tilt Shot"
 }
@@ -584,7 +584,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation -9.954351534386497e-10 9.954382627919907e-10 1 1.570799999999999
+        rotation -9.954351926908867e-10 9.954383805487066e-10 1 1.570799999999999
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -614,7 +614,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation -4.981416145070952e-09 4.9814345603322366e-09 1 1.570799999999999
+        rotation -4.981416118085038e-09 4.981434575051827e-09 1 1.570799999999999
         children [
           USE wheel
         ]
@@ -680,6 +680,10 @@ DEF KAZ Robot {
       }
       physics Physics {
       }
+    }
+    PointLight {
+      attenuation 0 0 1
+      location 0 0.3 0
     }
   ]
   name "KAZ"

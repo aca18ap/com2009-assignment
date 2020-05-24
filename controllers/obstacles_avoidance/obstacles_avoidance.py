@@ -79,6 +79,7 @@ def check_central_colour():
     
     col = classify_colour(r/(sampleSize*sampleSize),g/(sampleSize*sampleSize),b/(sampleSize*sampleSize))
     print(col)
+    return(col)
 
 
 
@@ -115,26 +116,38 @@ def obs_avoidance():
     init = True
     duration1 = 10
     duration2 = 10
+    colorToFind = ""
+    
     
     while robot.step(TIME_STEP) != -1:
         
         leftSpeed = 13
         rightSpeed = 13
                  
-        check_central_colour()
+        currentColor = check_central_colour()
         
+        
+        ## Initial turn to detect box color
         if init == True:
             if duration1 > 0:
                 duration1 -= 1   
                 leftSpeed = 5.0
                 rightSpeed = -5.0
+                colorToFind = check_central_colour()
             elif duration2 > 0:
                 duration2 -= 1   
                 leftSpeed = -5.0
                 rightSpeed = 5.0
-                
             else :
                 init = False   
+        
+        
+        elif (currentColor == colorToFind) and (ds[0].getValue() < 10):         
+            wheels[0].setVelocity(0)
+            wheels[1].setVelocity(0)
+            print("target found")
+            break
+            
         
         elif adjust > 0:
             adjust -= 1
