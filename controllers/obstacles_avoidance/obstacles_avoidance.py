@@ -7,6 +7,84 @@ from controller import Robot
 TIME_STEP = 64
 robot = Robot()
 
+
+# set up camera
+camera = robot.getCamera('camera')
+camera.enable(TIME_STEP) 
+
+sampleSize = 5 # define size of the central pixel grid
+
+
+"""
+Given average r, g and b values from a sample, 
+determines which of the colours it represents.
+"""    
+def classify_colour(r,g,b):
+
+    col = "UNKNOWN"
+    if (r>200):
+        if (b>200):
+            col = "FUSCHIA"
+        elif (g>200):
+            col = "YELLOW"
+        else:
+            col = "RED"
+    elif (b>200):
+        if (g>200):
+            col = "AQUA"
+        else:
+            col = "BLUE"
+    elif (g>200):   
+        col = "LIME"
+    elif (r>100): 
+        if (b>100):
+            col = "PURPLE"
+        elif (g>100):
+            col = "OLIVE"
+        else:
+            col = "MAROON"
+    elif (b>100):
+        if (g>100):
+            col = "TEAL"
+        else:
+            col = "NAVY"
+    elif (g>100):
+        col = "GREEN"
+    return col
+
+
+
+
+
+
+"""
+Takes the average rgb values of the central pixels from the camera.
+"""
+def check_central_colour():
+
+    pic = camera.getImageArray()
+    mid_w = camera.getWidth()/2
+    mid_h = camera.getHeight()/2
+    r = 0
+    g = 0
+    b = 0
+    
+    # sum the colour components for the central 100 pixels (10x10)
+    for x in range(int(mid_w-sampleSize/2),int(mid_w+sampleSize/2)):
+      for y in range(int(mid_h-sampleSize/2),int(mid_h+sampleSize/2)):
+        r += pic[x][y][0]
+        g += pic[x][y][1]
+        b += pic[x][y][2]
+    print ('r' + str(r/(sampleSize*sampleSize)) +' g' + str(g/(sampleSize*sampleSize)) +' b' + str(b/(sampleSize*sampleSize)))
+    
+    col = classify_colour(r/(sampleSize*sampleSize),g/(sampleSize*sampleSize),b/(sampleSize*sampleSize))
+    print(col)
+
+
+
+
+
+
 ds = []
 dsNames = ['ds_front', 'ds_FL15', 'ds_FL30', 'ds_FL45', 'ds_FL60', 'ds_FR15', 'ds_FR30', 'ds_FR45', 'ds_FR60', 'ds_BR60', 'ds_BL60', 'ds_back']
 
@@ -43,6 +121,7 @@ def obs_avoidance():
         leftSpeed = 13
         rightSpeed = 13
                  
+        check_central_colour()
         
         if init == True:
             if duration1 > 0:
