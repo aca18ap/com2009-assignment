@@ -13,8 +13,8 @@ StartZone {
   name "start zone(1)"
 }
 Viewpoint {
-  orientation 0.2795569732120609 0.7709614377468479 0.572246765159773 3.8619977268119596
-  position -1.546024670376193 7.7277345091724206 -1.497839906806082
+  orientation 0.34494427828946805 0.8673276396846998 0.3588261561178689 4.531588524797989
+  position -4.645621020254262 5.111804850115042 -0.7399412677398778
   followType "Pan and Tilt Shot"
 }
 TexturedBackground {
@@ -592,6 +592,10 @@ DEF KAZ Robot {
       }
       physics Physics {
       }
+    }
+    PointLight {
+      attenuation 0 0 1
+      location 0 0.3 0
     }
   ]
   name "KAZ"
