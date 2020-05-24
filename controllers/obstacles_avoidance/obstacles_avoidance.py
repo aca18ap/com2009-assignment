@@ -145,8 +145,12 @@ def obs_avoidance():
             else :
                 init = False   
         
-               
-         
+        elif (currentColor == colorToFind) and (ds[0].getValue() < 10):         
+            wheels[0].setVelocity(0)
+            wheels[1].setVelocity(0)
+            print("target found")
+            break
+ 
         elif turn_around > 0:
             turn_around -= 1
             leftSpeed = -4.0
