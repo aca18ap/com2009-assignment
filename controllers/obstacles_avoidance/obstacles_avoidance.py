@@ -125,8 +125,8 @@ def obs_avoidance():
     
     while robot.step(TIME_STEP) != -1:
         
-        leftSpeed = 9.5
-        rightSpeed = 9.5
+        leftSpeed = 9.9
+        rightSpeed = 9.9
                  
         currentColor = check_central_colour()
         
@@ -145,7 +145,7 @@ def obs_avoidance():
             else :
                 init = False   
         
-        elif (currentColor == colorToFind) and (ds[0].getValue() < 10):         
+        elif (currentColor == colorToFind) and (ds[0].getValue() < 20):         
             wheels[0].setVelocity(0)
             wheels[1].setVelocity(0)
             print("target found")
@@ -201,15 +201,15 @@ def obs_avoidance():
             rightSpeed = 5.0
             
         else:  # read sensors
-            if (ds[2].getValue() < 20 and ds[6].getValue() < 20) or (ds[1].getValue() < 20 and ds[5].getValue() < 20) or (ds[3].getValue() < 20 and ds[7].getValue() < 20):
+            if (ds[2].getValue() < 15 and ds[6].getValue() < 15) or (ds[1].getValue() < 15 and ds[5].getValue() < 15) or (ds[3].getValue() < 15 and ds[7].getValue() < 15):
                 print("turn_around")
                 turn_around = 17.5          
             elif ds[0].getValue() < 20:
-                f_ObstacleCounter = 4.2
-            elif ds[3].getValue() < 20 or ds[1].getValue() < 20 or ds[2].getValue() < 20 or ds[4].getValue() < 20:
-                fl_ObstacleCounter = 4.2 
-            elif ds[7].getValue() < 20 or ds[5].getValue() < 20 or ds[6].getValue() < 20 or ds[8].getValue() < 20:
-                fr_ObstacleCounter = 4.2  
+                f_ObstacleCounter = 4.1
+            elif ds[3].getValue() < 17 or ds[1].getValue() < 17 or ds[2].getValue() < 17 or ds[4].getValue() < 17:
+                fl_ObstacleCounter = 4.1 
+            elif ds[7].getValue() < 17 or ds[5].getValue() < 17 or ds[6].getValue() < 17 or ds[8].getValue() < 17:
+                fr_ObstacleCounter = 4.1  
             else:
                 move_counter += 1
                 if move_counter == 9:
