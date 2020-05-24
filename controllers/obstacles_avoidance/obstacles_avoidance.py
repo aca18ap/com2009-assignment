@@ -3,9 +3,79 @@
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
+from controller import Camera
 
 TIME_STEP = 64
 robot = Robot()
+
+
+camera = robot.getCamera('camera')
+camera.enable(TIME_STEP) #you can tell this works because the camera turns on in the simulation!
+
+def classify_colour(r,g,b):
+    col = "UNKNOWN"
+    if (r>200):
+        if (b>200):
+            col = "FUSCHIA"
+        elif (g>200):
+            col = "YELLOW"
+        else:
+            col = "RED"
+    elif (b>200):
+        if (g>200):
+            col = "AQUA"
+        else:
+            col = "BLUE"
+    elif (g>200):   
+        col = "LIME"
+    elif (r>64): 
+        if (b>64):
+            col = "PURPLE"
+        elif (g>64):
+            col = "OLIVE"
+        else:
+            col = "MAROON"
+    elif (b>64):
+        if (g>64):
+            col = "TEAL"
+        else:
+            col = "NAVY"
+    elif (g>64):
+        col = "GREEN"
+    return col
+
+
+def check_central_colour():
+
+    pic = camera.getImageArray()
+    picAsArray = camera.getImage()
+    mid_w = camera.getWidth()/2
+    mid_h = camera.getHeight()/2
+    r = 0
+    g = 0
+    b = 0
+    sampleSize = 10 #take the central 10x10 pixel grid
+        
+    # sum the colour components for the central 100 pixels (10x10)
+    for x in range(int(mid_w-sampleSize/2),int(mid_w+sampleSize/2)):
+      for y in range(int(mid_h-sampleSize/2),int(mid_h+sampleSize/2)):
+        r += pic[x][y][0]
+        g += pic[x][y][1]
+        b += pic[x][y][2]
+    
+    col = classify_colour(r/sampleSize,g/sampleSize,b/sampleSize)
+    
+    return col
+
+"""
+Given average r, g and b values from a sample, 
+determines which of the colours it represents.
+"""    
+
+
+
+
+
 
 ds = []
 dsNames = ['ds_front', 'ds_FL15', 'ds_FL30', 'ds_FL45', 'ds_FL60', 'ds_FR15', 'ds_FR30', 'ds_FR45', 'ds_FR60', 'ds_BR60', 'ds_BL60', 'ds_back']
@@ -37,24 +107,26 @@ def obs_avoidance():
     init = True
     duration1 = 10
     duration2 = 10
+    col = ""
     
     while robot.step(TIME_STEP) != -1:
         
-        leftSpeed = 13
-        rightSpeed = 13
-                 
+        leftSpeed = 10
+        rightSpeed = 10
         
+        col = check_central_colour
+        print(col)
+                        
         if init == True:
             if duration1 > 0:
                 duration1 -= 1   
                 leftSpeed = 5.0
-                rightSpeed = -5.0
+                rightSpeed = -5.0            
             elif duration2 > 0:
                 duration2 -= 1   
                 leftSpeed = -5.0
-                rightSpeed = 5.0
-                
-            else :
+                rightSpeed = 5.0               
+            else:
                 init = False   
         
         elif adjust > 0:
@@ -109,6 +181,5 @@ def obs_avoidance():
    
 obs_avoidance()
     
+    
 
-        
-# Enter here exit cleanup code.
