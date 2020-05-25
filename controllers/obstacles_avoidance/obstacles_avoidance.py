@@ -121,6 +121,8 @@ def obs_avoidance():
     turn_around = 0
     adjust_acount = 0
     aTurnL = True
+    turn_counter_a = 0
+    turnL_a = True
     
     
     while robot.step(TIME_STEP) != -1:
@@ -145,48 +147,57 @@ def obs_avoidance():
             else :
                 init = False   
         
-        elif (currentColor == colorToFind) and (ds[0].getValue() < 20):         
-            wheels[0].setVelocity(0)
-            wheels[1].setVelocity(0)
-            print("target found")
-            break
+
  
-        elif turn_around > 0:
+        elif turn_around > 0 and turnL_a:
             turn_around -= 1
-            leftSpeed = -4.0
-            rightSpeed = 4.0    
-        
+            leftSpeed = -4.1
+            rightSpeed = 4.1
+            turn_counter_a += 1
+            if turn_counter == 16:
+               turnL_a = False
+               turn_counter_a = 0
+               
+        elif turn_around > 0 and not turnL_a:
+            turn_around -= 1
+            leftSpeed = 4.1
+            rightSpeed = -4.1
+            turn_counter_a += 1
+            if turn_counter == 16:
+               turnL_a = True
+               turn_counter_a = 0        
+                           
         elif adjust > 0 and aTurnL:
             adjust -= 1
-            leftSpeed = -2.9
-            rightSpeed = 2.9 
-            if adjust_acount == 7 and adjust ==0:
+            leftSpeed = -4.05
+            rightSpeed = 4.05 
+            if adjust_acount == 10 and adjust ==0:
               aTurnL = False
               adjust_acount = 0
               
         elif adjust > 0 and not aTurnL:
             adjust -= 1
-            leftSpeed = 2.9
-            rightSpeed = -2.9 
-            if adjust_acount == 7 and adjust ==0:
+            leftSpeed = 4.05
+            rightSpeed = -4.05 
+            if adjust_acount == 10 and adjust ==0:
               aTurnL = True
               adjust_acount = 0     
         
         elif f_ObstacleCounter > 0 and turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = -4.0
-            rightSpeed = 4.0
+            leftSpeed = -3.5
+            rightSpeed = 3.5
             turn_counter += 1
-            if turn_counter == 10:
+            if turn_counter == 8:
                turnL = False
                turn_counter = 0
                
         elif f_ObstacleCounter > 0 and not turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = 4.0
-            rightSpeed = -4.0
+            leftSpeed = 3.5
+            rightSpeed = -3.5
             turn_counter += 1
-            if turn_counter == 10:
+            if turn_counter == 8:
                turnL = True
                turn_counter = 0    
     
@@ -201,18 +212,18 @@ def obs_avoidance():
             rightSpeed = 5.0
             
         else:  # read sensors
-            if (ds[2].getValue() < 15 and ds[6].getValue() < 15) or (ds[1].getValue() < 15 and ds[5].getValue() < 15) or (ds[3].getValue() < 15 and ds[7].getValue() < 15):
+            if (ds[2].getValue() < 16.8 and ds[6].getValue() < 16.8) or (ds[1].getValue() < 17.5 and ds[5].getValue() < 17.5):
                 print("turn_around")
-                turn_around = 17.5          
-            elif ds[0].getValue() < 20:
-                f_ObstacleCounter = 4.1
-            elif ds[3].getValue() < 17 or ds[1].getValue() < 17 or ds[2].getValue() < 17 or ds[4].getValue() < 17:
-                fl_ObstacleCounter = 4.1 
-            elif ds[7].getValue() < 17 or ds[5].getValue() < 17 or ds[6].getValue() < 17 or ds[8].getValue() < 17:
-                fr_ObstacleCounter = 4.1  
+                turn_around = 16.0          
+            elif ds[0].getValue() < 16.5:
+                f_ObstacleCounter = 5.0
+            elif ds[3].getValue() < 17.4 or ds[1].getValue() < 17.4 or ds[2].getValue() < 17.4 or ds[4].getValue() < 17.4:
+                fl_ObstacleCounter = 5.0 
+            elif ds[7].getValue() < 17.4 or ds[5].getValue() < 17.4 or ds[6].getValue() < 17.4 or ds[8].getValue() < 17.4:
+                fr_ObstacleCounter = 5.0 
             else:
                 move_counter += 1
-                if move_counter == 9:
+                if move_counter == 7:
                     adjust = 2
                     adjust_acount += 1
                     move_counter = 0     
