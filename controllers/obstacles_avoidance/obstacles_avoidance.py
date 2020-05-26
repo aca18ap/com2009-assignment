@@ -131,7 +131,7 @@ def obs_avoidance():
         rightSpeed = 9.9
                  
         currentColor = check_central_colour()
-        
+
         
         ## Initial turn to detect box color
         if init == True:
@@ -140,6 +140,7 @@ def obs_avoidance():
                 leftSpeed = 5.0
                 rightSpeed = -5.0
                 colorToFind = check_central_colour()
+                colorToFind = "MAROON"
             elif duration2 > 0:
                 duration2 -= 1   
                 leftSpeed = -5.0
@@ -147,7 +148,11 @@ def obs_avoidance():
             else :
                 init = False   
         
-
+        elif (currentColor == colorToFind) and (ds[0].getValue() < 20):         
+            wheels[0].setVelocity(0)
+            wheels[1].setVelocity(0)
+            print("target found")
+            break
  
         elif turn_around > 0 and turnL_a:
             turn_around -= 1
@@ -165,39 +170,25 @@ def obs_avoidance():
             turn_counter_a += 1
             if turn_counter == 16:
                turnL_a = True
-               turn_counter_a = 0        
-                           
-        elif adjust > 0 and aTurnL:
-            adjust -= 1
-            leftSpeed = -4.05
-            rightSpeed = 4.05 
-            if adjust_acount == 10 and adjust ==0:
-              aTurnL = False
-              adjust_acount = 0
-              
-        elif adjust > 0 and not aTurnL:
-            adjust -= 1
-            leftSpeed = 4.05
-            rightSpeed = -4.05 
-            if adjust_acount == 10 and adjust ==0:
-              aTurnL = True
-              adjust_acount = 0     
+               turn_counter_a = 0                                      
         
         elif f_ObstacleCounter > 0 and turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = -3.5
-            rightSpeed = 3.5
+            leftSpeed = -3.7
+            rightSpeed = 3.7
+            print("turn_left_F")
             turn_counter += 1
-            if turn_counter == 8:
+            if turn_counter == 5:
                turnL = False
                turn_counter = 0
                
         elif f_ObstacleCounter > 0 and not turnL:
             f_ObstacleCounter -= 1
-            leftSpeed = 3.5
-            rightSpeed = -3.5
+            leftSpeed = 3.7
+            rightSpeed = -3.7
+            print("turn_right_F")
             turn_counter += 1
-            if turn_counter == 8:
+            if turn_counter == 5:
                turnL = True
                turn_counter = 0    
     
@@ -205,28 +196,35 @@ def obs_avoidance():
             fl_ObstacleCounter -= 1
             leftSpeed = 5.0
             rightSpeed = -5.0
+            print("turn_right")
             
         elif fr_ObstacleCounter > 0:
             fr_ObstacleCounter -= 1
             leftSpeed = -5.0
             rightSpeed = 5.0
+            print("turn_left")
+            
+        elif adjust > 0:
+            adjust -= 1
+            leftSpeed = 5
+            rightSpeed = -5
+            print("adjust")    
             
         else:  # read sensors
-            if (ds[2].getValue() < 16.8 and ds[6].getValue() < 16.8) or (ds[1].getValue() < 17.5 and ds[5].getValue() < 17.5):
+            if (ds[4].getValue() < 15 and ds[8].getValue() < 15):
                 print("turn_around")
                 turn_around = 16.0          
-            elif ds[0].getValue() < 16.5:
+            elif ds[0].getValue() < 15:
                 f_ObstacleCounter = 5.0
-            elif ds[3].getValue() < 17.4 or ds[1].getValue() < 17.4 or ds[2].getValue() < 17.4 or ds[4].getValue() < 17.4:
-                fl_ObstacleCounter = 5.0 
-            elif ds[7].getValue() < 17.4 or ds[5].getValue() < 17.4 or ds[6].getValue() < 17.4 or ds[8].getValue() < 17.4:
-                fr_ObstacleCounter = 5.0 
+            elif ds[3].getValue() < 15 or ds[1].getValue() < 15 or ds[2].getValue() < 15 or ds[4].getValue() < 15:
+                fl_ObstacleCounter = 5.5 
+            elif ds[7].getValue() < 15 or ds[5].getValue() < 15 or ds[6].getValue() < 15 or ds[8].getValue() < 15:
+                fr_ObstacleCounter = 5.5 
             else:
                 move_counter += 1
-                if move_counter == 7:
-                    adjust = 2
-                    adjust_acount += 1
-                    move_counter = 0     
+                if move_counter == 76:
+                    adjust = 4
+                    move_counter = 0 
                     
         wheels[0].setVelocity(leftSpeed)
         wheels[1].setVelocity(rightSpeed)
