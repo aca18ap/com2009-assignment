@@ -179,6 +179,23 @@ determines which of the colours it represents.
 def classify_colour(r,g,b):
 
     col = "UNKNOWN"
+    
+    #first check if we see a floor!
+    if (r >200 and b>200 and g>200):
+        return "WHITE-FLOOR"
+    
+    #now check if we see a wood panel
+    
+    #see a wall
+    if ( (r-b) < 5 and (r-b) > -5 and (g-b) < 5 and (g-b) >-5 ):
+        return "GREY"
+    
+    #see a wood panel
+    if (r>200 and g>180 and b>120):
+        return "WOOD"
+    
+
+    # not floor, wall, or wood panel. determine the beacon colour
     if (r>200):
         if (b>200):
             col = "FUSCHIA"
