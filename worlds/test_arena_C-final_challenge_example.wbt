@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.26844755399929 -0.8129207819848728 -0.5168130348287486 2.282859719251181
-  position -0.0020410253089023778 2.884715141662708 -0.10884711952634193
+  orientation -0.9978938799935362 -0.034444998286309515 -0.054966775096435216 1.045526552986287
+  position -0.5221742129934892 4.6365382208181325 3.5531104397916677
   follow "KAZ"
   followType "Pan and Tilt Shot"
 }
@@ -325,8 +325,8 @@ StartZone {
   ]
 }
 DEF KAZ Robot {
-  translation 0.294271 0.0747031 0.188878
-  rotation 1.1537299873255601e-10 -0.9999989890143904 -0.0014219599843788872 -5.307179586466759e-06
+  translation -1.11065 0.0747031 1.46245
+  rotation -3.90952e-09 1 -3.90952e-09 -1.5707953071795862
   children [
     DistanceSensor {
       translation 0 0.04 0.08
@@ -584,7 +584,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation -9.954351926908856e-10 9.954383805487062e-10 1 1.570799999999999
+        rotation -9.954351141864092e-10 9.954384786793047e-10 1 1.5707999999999989
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -614,7 +614,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation -4.981416118085038e-09 4.981434575051827e-09 1 1.570799999999999
+        rotation -4.981416353598477e-09 4.981434692808545e-09 1 1.5707999999999989
         children [
           USE wheel
         ]
@@ -685,10 +685,43 @@ DEF KAZ Robot {
       attenuation 0 0 1
       location 0 0.3 0
     }
+    Transform {
+      translation 5.40217e-08 -0.0105558 0.0798211
+      rotation 0.9999999999904996 -3.4582099999671458e-06 2.65357999997479e-06 1.309
+      children [
+        Camera {
+          translation 0 0.02 0
+          rotation 0 1 0 3.14159
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.0895094 0.0895094 0.0895094
+                metalness 0.5
+              }
+              geometry Sphere {
+                radius 0.01
+                subdivision 2
+              }
+            }
+          ]
+          name "camera_floor"
+        }
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.999969 0.999985
+            metalness 0.5
+          }
+          geometry Cylinder {
+            height 0.03
+            radius 0.005
+          }
+        }
+      ]
+    }
   ]
   name "KAZ"
   boundingObject USE BODY
   physics Physics {
   }
-  controller "obstacles_avoidance"
+  controller "maze_solver_v1"
 }

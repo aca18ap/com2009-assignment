@@ -61,6 +61,9 @@ rightMotor = wheels[1]
 camera = robot.getCamera('camera')
 camera.enable(TIME_STEP) 
 
+camera_floor = robot.getCamera('camera_floor')
+camera_floor.enable(TIME_STEP)
+
 sampleSize = 15 # define size of the central pixel grid
 
 
@@ -125,7 +128,7 @@ def navigate_maze():
     diff = R1 - R2
         
     
-    if front < 8 or R0 < 6 or R1 < 6:
+    if front < 8 or R0 < 7 or ds[8].getValue() < 8:
         halt()
         print("obstacle ahead")
         leftMotor.setVelocity(-1.5)
@@ -214,11 +217,11 @@ def classify_colour(r,g,b):
 """
 Takes the average rgb values of the central pixels from the camera.
 """
-def check_central_colour():
+def check_central_colour(cameraObject):
 
-    pic = camera.getImageArray()
-    mid_w = camera.getWidth()/2
-    mid_h = camera.getHeight()/2
+    pic = cameraObject.getImageArray()
+    mid_w = cameraObject.getWidth()/2
+    mid_h = cameraObject.getHeight()/2
     r = 0
     g = 0
     b = 0
@@ -229,10 +232,10 @@ def check_central_colour():
         r += pic[x][y][0]
         g += pic[x][y][1]
         b += pic[x][y][2]
-    print ('r' + str(r/(sampleSize*sampleSize)) +' g' + str(g/(sampleSize*sampleSize)) +' b' + str(b/(sampleSize*sampleSize)))
+    #print ('r' + str(r/(sampleSize*sampleSize)) +' g' + str(g/(sampleSize*sampleSize)) +' b' + str(b/(sampleSize*sampleSize)))
     
     col = classify_colour(r/(sampleSize*sampleSize),g/(sampleSize*sampleSize),b/(sampleSize*sampleSize))
-    print(col)
+    #print(col)
     return(col)                
  
  
@@ -247,7 +250,7 @@ def check_initial_color():
             duration1 -= 1   
             leftMotor.setVelocity(5)
             rightMotor.setVelocity(-5)
-            colorToFind = check_central_colour()
+            colorToFind = check_central_colour(camera)
         elif duration2 > 0:
             duration2 -= 1   
             leftMotor.setVelocity(-5)
@@ -257,13 +260,17 @@ def check_initial_color():
  
 
 
-def beacon_finder():
-    current_color = check_central_color()
-    if (currentColor == colorToFind) and (ds[0].getValue() < 10):         
+def beacon_finder(adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL):
+    current_color = check_central_colour(camera)
+    leftSpeed = 5;
+    rightSpeed = 5;
+    global beacon_found
+    if (current_color == colorToFind) and (ds[0].getValue() < 15):         
             wheels[0].setVelocity(0)
             wheels[1].setVelocity(0)
             beacon_found = True
-            print("target found")
+            print("target reached")
+  
             
 
     elif adjust > 0:
@@ -314,7 +321,7 @@ def beacon_finder():
                 
     wheels[0].setVelocity(leftSpeed)
     wheels[1].setVelocity(rightSpeed)
-
+    return((adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL))
 
 
 
@@ -326,6 +333,7 @@ initialCounter = 0
 duration2 = 50
 duration1 = 50
 print(TIME_STEP)
+bcnRes = (adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL)
 while robot.step(TIME_STEP) != -1:
     # Read the sensors:
     # Enter here functions to read sensor data, like:
@@ -333,34 +341,37 @@ while robot.step(TIME_STEP) != -1:
     
     if initialCounter != 1:
         print("initial color check")
-        print("Color to find: ",colorToFind)
+        
         if duration1 > 0:
             duration1 -= 1   
             leftMotor.setVelocity(5)
             rightMotor.setVelocity(-5)
-            colorToFind = check_central_colour()
+            colorToFind = check_central_colour(camera)
         elif duration2 > 0:
             duration2 -= 1   
             leftMotor.setVelocity(-5)
             rightMotor.setVelocity(5)
         else:
             initialCounter +=1
+            print("Color to find: ",colorToFind)
             
         
     else:
-        current_color = check_central_colour()
-        if False:
+        current_floor = check_central_colour(camera_floor)
+        print(beacon_found)
+        if current_floor == "RED" and beacon_part == False:
             beacon_part = True
-            print("Switchd to beaconing challenge mode")
-        
-        
+            print("Switched to beaconing challenge mode")
+                  
         if beacon_part == False:
+            print("current floor camera color: ",current_floor)
             navigate_maze()
-        else:
-            if beacon_found != True:
-                beacon_finder()
-            else:
-                break
+        elif beacon_part == True and beacon_found != True:
+            print("current beacon ahead: ", check_central_colour(camera))
+            bcnRes = beacon_finder(bcnRes[0], bcnRes[1], bcnRes[2], bcnRes[3], bcnRes[4], bcnRes[5], bcnRes[6] ) 
+        elif beacon_found == True:
+            halt()
+            break
         
     
     pass
