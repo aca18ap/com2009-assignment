@@ -284,8 +284,8 @@ def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_cou
             
     elif turn_around > 0:
         turn_around -= 1
-        leftSpeed = -4.1
-        rightSpeed = 4.1
+        leftSpeed = -5
+        rightSpeed = 5
         print("turn_around")
                                  
     elif fl_ObstacleCounter > 0:
@@ -316,12 +316,12 @@ def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_cou
            rightSpeed = 9.9        
         
     else:  # read sensors
-            if (ds[4].getValue() < 14 and ds[8].getValue() < 14):                
+            if (ds[4].getValue() < 12 and ds[8].getValue() < 12):                
                 turn_around = 16.0
             elif ds[3].getValue() < 13 or ds[1].getValue() < 13 or ds[2].getValue() < 13 or ds[4].getValue() < 13:
-                fl_ObstacleCounter = 5.5 
+                fl_ObstacleCounter = 5 
             elif ds[7].getValue() < 13 or ds[5].getValue() < 13 or ds[6].getValue() < 13 or ds[8].getValue() < 13:
-                fr_ObstacleCounter = 5.5 
+                fr_ObstacleCounter = 5 
             else:
                 move_counter += 1
                 if move_counter == 100:
