@@ -175,6 +175,7 @@ def navigate_maze():
                 
         
                 
+                
 """
 Given average r, g and b values from a sample, 
 determines which of the colours it represents.
@@ -183,49 +184,46 @@ def classify_colour(r,g,b):
 
     col = "UNKNOWN"
     
-    #first check if we see a floor!
+    # first check if we see a floor!
     if (r >200 and b>200 and g>200):
         return "WHITE-FLOOR"
     
-    #now check if we see a wood panel
-    
-    #see a wall
+    # see a wall
     if ( (r-b) < 5 and (r-b) > -5 and (g-b) < 5 and (g-b) >-5 ):
         return "GREY"
     
-    #see a wood panel
+    # see a wood panel
     if (r>200 and g>180 and b>120):
         return "WOOD"
     
-
-    # not floor, wall, or wood panel. determine the beacon colour
+    # if none of those things, determine if it is a colour (beacon)
     if (r>200):
         if (b>200):
             col = "FUSCHIA"
-        elif (g>200):
+        elif (g>200 and b<100):
             col = "YELLOW"
-        else:
+        elsif (g<100 and b<100):
             col = "RED"
     elif (b>200):
-        if (g>200):
+        if (g>200 and r<100):
             col = "AQUA"
-        else:
+        elif (g<100 and r<100):
             col = "BLUE"
-    elif (g>200):   
+    elif (g>200 and b<100 and r<100):   
         col = "LIME"
     elif (r>120): 
-        if (b>120):
+        if (b>120 and g <60):
             col = "PURPLE"
-        elif (g>120 and b<100):
+        elif (g>120 and b<60):
             col = "OLIVE"
-        else:
+        elif (b <60 and g<60):
             col = "MAROON"
     elif (b>120):
-        if (g>120):
+        if (g>120 and r<100):
             col = "TEAL"
-        else:
+        elif (g<100 and r<100):
             col = "NAVY"
-    elif (g>120):
+    elif (g>120 and b<60 and r<60):
         col = "GREEN"
     return col
 
