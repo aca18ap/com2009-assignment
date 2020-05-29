@@ -280,66 +280,77 @@ def check_initial_color():
 
 def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_counter, turn_around):
     current_color = check_central_colour(camera)
+    # default move straight forward
     leftSpeed = 9.9
     rightSpeed = 9.9
 
     global beacon_found
+    # Halt the robot whenever the target beacon is found
     if (current_color == colorToFind) and (ds[0].getValue() < 15):         
             wheels[0].setVelocity(0)
             wheels[1].setVelocity(0)
             beacon_found = True
             print("target reached")
-            
+    
+    # turn_around       
     elif turn_around > 0:
         turn_around -= 1
         leftSpeed = -5
         rightSpeed = 5
         print("turn_around")
-                                 
+    
+    # turn_right                              
     elif fl_ObstacleCounter > 0:
         fl_ObstacleCounter -= 1
         leftSpeed = 5.0
         rightSpeed = -5.0
         print("turn_right")
-        
+    
+    # turn_left     
     elif fr_ObstacleCounter > 0:
         fr_ObstacleCounter -= 1
         leftSpeed = -5.0
         rightSpeed = 5.0
         print("turn_left")
-        
+    
+    # adjust the direction periodically to avoid getting stuck    
     elif adjust > 0:
         adjust -= 1
         leftSpeed = 5
         rightSpeed = -5
         
-    elif scan > 0: # scan around
+    # scan around for the target beacon
+    # if the target beacon is found, go straight to it   
+    elif scan > 0:
        if not (current_color == colorToFind): 
            scan -= 1
            leftSpeed = -4.1
-           rightSpeed = 4.1
-           
-          
+           rightSpeed = 4.1         
        else:
-           print("just moving moving towards")
+           print("just moving towards")
            scan = 0
            leftSpeed = 9.9
            rightSpeed = 9.9        
         
-    else:  # read sensors
-            if (ds[4].getValue() < 12 and ds[8].getValue() < 12):                
-                turn_around = 16.0
-            elif ds[3].getValue() < 13 or ds[1].getValue() < 13 or ds[2].getValue() < 13 or ds[4].getValue() < 13:
-                fl_ObstacleCounter = 5 
-            elif ds[7].getValue() < 13 or ds[5].getValue() < 13 or ds[6].getValue() < 13 or ds[8].getValue() < 13:
-                fr_ObstacleCounter = 5 
-            else:
-                move_counter += 1
-                if move_counter == 100:
-                    scan = 200
-                elif move_counter == 150:
-                    adjust = 4
-                    move_counter = 0
+    else:   # read sensors
+       #if detecting obstacles at the front
+       if (ds[4].getValue() < 12 and ds[8].getValue() < 12):                
+            turn_around = 16.0
+       #if detecting obstacles at the left
+       elif ds[3].getValue() < 13 or ds[1].getValue() < 13 or ds[2].getValue() < 13 or ds[4].getValue() < 13:
+            fl_ObstacleCounter = 5 
+       #if detecting obstacles at the right
+       elif ds[7].getValue() < 13 or ds[5].getValue() < 13 or ds[6].getValue() < 13 or ds[8].getValue() < 13:
+            fr_ObstacleCounter = 5 
+       #else counting the steps of moving forward
+       #to periodically do the adjust and the scan
+       else:
+            move_counter += 1
+            if move_counter == 50:
+                scan = 200
+            elif move_counter == 76:
+                adjust = 4
+                move_counter = 0
                 
                 
     wheels[0].setVelocity(leftSpeed)
@@ -537,5 +548,3 @@ while robot.step(TIME_STEP) != -1:
     pass
 
 # Enter here exit cleanup code.
-
-
