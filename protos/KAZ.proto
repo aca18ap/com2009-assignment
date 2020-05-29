@@ -1,229 +1,409 @@
 PROTO KAZ [
-	field SFVec3f    translation  0 0 0
+	field SFVec3f    translation  -1.054 0.74661 1.482
 	field SFRotation rotation     0 1 0 0
 	field SFFloat    bodyMass     1
 ]
 
 {
-	Robot {
-		translation -0.381714 0.08 -0.752613
-		rotation 0 1 0 3.14159
-		children [
-			DistanceSensor {
-				translation 0 0.04 0.08
-				rotation 0 1 0 -1.5707953071795862
-				children [
-					DEF dist_s Shape {
-						appearance PBRAppearance {
-							baseColor 1 0.999969 0.999985
-							metalness 0.5
-						}
-						geometry Box {
-							size 0.01 0.01 0.01
-						}
-					}
-				]
-				name "ds_front"
-			}
-			DistanceSensor {
-				translation 0.0517 0.04 0.0617
-				rotation 0 -1 0 0.785401
-				children [
-					USE dist_s
-				]
-				name "ds_FL"
-			}
-			DistanceSensor {
-				translation 0.08 0.04 0
-				children [
-					USE dist_s
-				]
-				name "ds_left"
-			}
-			DistanceSensor {
-				translation -0.0517 0.04 0.0617
-				rotation 0 1 0 -2.3561953071795863
-				children [
-					USE dist_s
-				]
-				name "ds_FR"
-			}
-			DistanceSensor {
-				translation -0.08 0.04 0
-				rotation 0 1 0 3.14159
-				children [
-					USE dist_s
-				]
-				name "ds_right"
-			}
-			DistanceSensor {
-				translation -0.0517 0.04 -0.0617
-				rotation 0 -1 0 -2.3561953071795863
-				children [
-					USE dist_s
-				]
-				name "ds_BR"
-			}
-			DistanceSensor {
-				translation 0.0517 0.04 -0.0617
-				rotation 0 -1 0 -0.7854053071795866
-				children [
-					USE dist_s
-				]
-				name "ds_BL"
-			}
-			DistanceSensor {
-				translation 0 0.04 -0.08
-				rotation 0 1 0 1.5708
-				children [
-					USE dist_s
-				]
-				name "ds_back"
-			}
-			Transform {
-				translation 1.59215e-07 0.07 0.06
-				rotation 0 1 0 -5.307179586466759e-06
-				children [
-					Camera {
-						translation 0 0.02 0
-						rotation 0 1 0 3.14159
-						children [
-							Shape {
-								appearance PBRAppearance {
-									baseColor 0.0895094 0.0895094 0.0895094
-									metalness 0.5
-								}
-								geometry Sphere {
-									radius 0.01
-									subdivision 2
-								}
-							}
-						]
-					}
-					Shape {
-						appearance PBRAppearance {
-							baseColor 1 0.999969 0.999985
-							metalness 0.5
-						}
-						geometry Cylinder {
-							height 0.03
-							radius 0.005
-						}
-					}
-				]
-			}
-			HingeJoint {
-				jointParameters HingeJointParameters {
-					anchor 0.08 -0.035 0
-				}
-				device [
-					RotationalMotor {
-						name "left_wheel"
-					}
-				]
-				endPoint Solid {
-					translation 0.08 -0.035 0
-					rotation 0 0 1 1.5707999999999998
-					children [
-						DEF wheel Shape {
-							appearance PBRAppearance {
-								baseColor 0.0209354 0.248005 0.772824
-								metalness 0.5
-							}
-							geometry Cylinder {
-								height 0.01
-								radius 0.04
-							}
-						}
-					]
-					boundingObject USE wheel
-					physics DEF wheel_ph Physics {
-					}
-				}
-			}
-			HingeJoint {
-				jointParameters HingeJointParameters {
-					anchor -0.08 -0.035 0
-				}
-				device [
-					RotationalMotor {
-						name "right_wheel"
-					}
-				]
-				endPoint Solid {
-					translation -0.08 -0.035 0
-					rotation 0 0 1 1.5707999999999998
-					children [
-						USE wheel
-					]
-					boundingObject USE wheel
-					physics USE wheel_ph
-				}
-			}
-			DEF BODY Shape {
-				appearance PBRAppearance {
-					baseColor 1 0.999969 0.999985
-					baseColorMap ImageTexture {
-						url [
-							"textures/checkered_marble.jpg"
-						]
-					}
-					metalness 0
-				}
-				geometry Cylinder {
-					height 0.12
-					radius 0.075
-				}
-			}
-			Solid {
-				translation 0 -0.055 -0.08
-				scale 0.2 0.2 0.2
-				children [
-					Shape {
-						appearance PBRAppearance {
-						}
-						geometry Capsule {
-							height 0.1
-							radius 0.05
-						}
-					}
-				]
-				name "solid(1)"
-				boundingObject Capsule {
-					height 0.1
-					radius 0.05
-					subdivision 16
-				}
-				physics Physics {
-				}
-			}
-			Solid {
-				translation 0 -0.055 0.08
-				scale 0.2 0.2 0.2
-				children [
-					Shape {
-						appearance PBRAppearance {
-						}
-						geometry Capsule {
-							height 0.1
-							radius 0.05
-						}
-					}
-				]
-				name "solid(3)"
-				boundingObject Capsule {
-					height 0.1
-					radius 0.05
-					subdivision 16
-				}
-				physics Physics {
-				}
-			}
-		]
-		name "KAZ"
-		boundingObject USE BODY
-		physics Physics {
-		}
-		controller "our_controller"
-	}
+  Robot {
+    translation -1.054 0.0746609 1.482
+    rotation 0.00022869550101375447 0.9999999412403926 0.00025537732679468944 -1.5691965319225434
+    children [
+      DistanceSensor {
+        translation 0 0.04 0.08
+        rotation 0 1 0 -1.5707953071795862
+        children [
+          DEF dist_s Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.999969 0.999985
+              metalness 0.5
+            }
+            geometry Box {
+              size 0.01 0.01 0.01
+            }
+          }
+        ]
+        name "ds_front"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation 0.0207056 0.04 0.0772743
+        rotation 0 1 0 -1.3089969389957472
+        children [
+          USE dist_s
+        ]
+        name "ds_FL15"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation 0.04 0.04 0.0692823
+        rotation 0 1 0 -1.0471975511965976
+        children [
+          USE dist_s
+        ]
+        name "ds_FL30"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation 0.0565687 0.04 0.0565687
+        rotation 0 1 0 -0.7853981633974483
+        children [
+          USE dist_s
+        ]
+        name "ds_FL45"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation 0.0692823 0.04 0.04
+        rotation 0 1 0 -0.5235987755982988
+        children [
+          USE dist_s
+        ]
+        name "ds_FL60"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation -0.0207056 0.04 0.0772741
+        rotation 0 1 0 -1.8325957145940461
+        children [
+          USE dist_s
+        ]
+        name "ds_FR15"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation -0.0400001 0.04 0.0692823
+        rotation 0 1 0 -2.0943951023931953
+        children [
+          USE dist_s
+        ]
+        name "ds_FR30"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation -0.0565687 0.04 0.0565687
+        rotation 0 1 0 -2.356194490192345
+        children [
+          USE dist_s
+        ]
+        name "ds_FR45"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation -0.0692823 0.04 0.04
+        rotation 0 1 0 -2.6179938779914944
+        children [
+          USE dist_s
+        ]
+        name "ds_FR60"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "infra-red"
+      }
+      DistanceSensor {
+        translation -0.0692823 0.04 -0.04
+        rotation 0 1 0 -3.6651914291880923
+        children [
+          USE dist_s
+        ]
+        name "ds_BR60"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "infra-red"
+      }
+      DistanceSensor {
+        translation 0.0692823 0.04 -0.04
+        rotation 0 1 0 -5.759586531581287
+        children [
+          USE dist_s
+        ]
+        name "ds_BL60"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      DistanceSensor {
+        translation 0 0.04 -0.08
+        rotation 0 1 0 1.5708
+        children [
+          USE dist_s
+        ]
+        name "ds_back"
+        lookupTable [
+          0 0 0
+          0.05 5 0.1
+          0.1 10 0.1
+          0.2 20 0.1
+          0.3 30 0.1
+          0.5 50 0.1
+        ]
+        type "sonar"
+      }
+      Transform {
+        translation 1.59215e-07 0.07 0.06
+        rotation 0 1 0 -5.307179586466759e-06
+        children [
+          Camera {
+            translation 0 0.02 0
+            rotation 0 1 0 3.14159
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.0895094 0.0895094 0.0895094
+                  metalness 0.5
+                }
+                geometry Sphere {
+                  radius 0.01
+                  subdivision 2
+                }
+              }
+            ]
+          }
+          Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.999969 0.999985
+              metalness 0.5
+            }
+            geometry Cylinder {
+              height 0.03
+              radius 0.005
+            }
+          }
+        ]
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          position 0.8317795961989461
+          anchor 0.08 -0.035 0
+        }
+        device [
+          RotationalMotor {
+            name "left_wheel"
+          }
+        ]
+        endPoint Solid {
+          translation 0.08 -0.035 0
+          rotation 0.3745877289417902 -0.374589104881873 0.8481550777010235 1.7347522451450705
+          children [
+            DEF wheel Shape {
+              appearance PBRAppearance {
+                baseColor 0.0209354 0.248005 0.772824
+                metalness 0.5
+              }
+              geometry Cylinder {
+                height 0.01
+                radius 0.04
+              }
+            }
+          ]
+          boundingObject USE wheel
+          physics DEF wheel_ph Physics {
+          }
+        }
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          position 0.8577753363687005
+          anchor -0.08 -0.035 0
+        }
+        device [
+          RotationalMotor {
+            name "right_wheel"
+          }
+        ]
+        endPoint Solid {
+          translation -0.08 -0.035 0
+          rotation 0.38397903249363996 -0.383980442929964 0.839713714341118 1.7446123701601404
+          children [
+            USE wheel
+          ]
+          boundingObject USE wheel
+          physics USE wheel_ph
+        }
+      }
+      DEF BODY Shape {
+        appearance PBRAppearance {
+          baseColor 1 0.999969 0.999985
+          baseColorMap ImageTexture {
+            url [
+              "textures/checkered_marble.jpg"
+            ]
+          }
+          metalness 0
+        }
+        geometry Cylinder {
+          height 0.12
+          radius 0.075
+        }
+      }
+      Solid {
+        translation 0 -0.055 -0.08
+        scale 0.2 0.2 0.2
+        children [
+          Shape {
+            appearance PBRAppearance {
+            }
+            geometry Capsule {
+              height 0.1
+              radius 0.05
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject Capsule {
+          height 0.1
+          radius 0.05
+          subdivision 16
+        }
+        physics Physics {
+        }
+      }
+      Solid {
+        translation 0 -0.055 0.08
+        scale 0.2 0.2 0.2
+        children [
+          Shape {
+            appearance PBRAppearance {
+            }
+            geometry Capsule {
+              height 0.1
+              radius 0.05
+            }
+          }
+        ]
+        name "solid(3)"
+        boundingObject Capsule {
+          height 0.1
+          radius 0.05
+          subdivision 16
+        }
+        physics Physics {
+        }
+      }
+      PointLight {
+        attenuation 0 0 1
+        location 0 0.3 0
+      }
+      Transform {
+        translation 5.40217e-08 -0.0105558 0.0798211
+        rotation 0.9999999999904996 -3.4582099999671458e-06 2.65357999997479e-06 1.309
+        children [
+          Camera {
+            translation 0 0.02 0
+            rotation 0 1 0 3.14159
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.0895094 0.0895094 0.0895094
+                  metalness 0.5
+                }
+                geometry Sphere {
+                  radius 0.01
+                  subdivision 2
+                }
+              }
+            ]
+            name "camera_floor"
+          }
+          Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.999969 0.999985
+              metalness 0.5
+            }
+            geometry Cylinder {
+              height 0.03
+              radius 0.005
+            }
+          }
+        ]
+      }
+    ]
+    name "KAZ"
+    boundingObject USE BODY
+    physics Physics {
+    }
+    controller "maze_solver_v1"
+  }
 }
