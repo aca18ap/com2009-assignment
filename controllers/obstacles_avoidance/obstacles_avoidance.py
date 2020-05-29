@@ -140,7 +140,7 @@ def obs_avoidance():
                 leftSpeed = 5.0
                 rightSpeed = -5.0
                 colorToFind = check_central_colour()
-                colorToFind = "MAROON"
+                colorToFind = "AQUA"
             elif duration2 > 0:
                 duration2 -= 1   
                 leftSpeed = -5.0

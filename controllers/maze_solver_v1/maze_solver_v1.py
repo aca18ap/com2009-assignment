@@ -28,6 +28,7 @@ turnL = True
 move_counter = 0
 adjust = 0
 init = True
+scan = 200
 
 colorToFind = ""
 cos30 = math.sqrt(3)/2
@@ -279,26 +280,25 @@ def check_initial_color():
  
 
 
-def beacon_finder(adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a):
+def beacon_finder(scan, adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a):
     current_color = check_central_colour(camera)
-    leftSpeed = 9;
-    rightSpeed = 9;
+    leftSpeed = 9.9
+    rightSpeed = 9.9
     global beacon_found
-    if (current_color == colorToFind) and (ds[0].getValue() < 15):         
+    if (current_color == colorToFind) and (ds[0].getValue() < 20):         
             wheels[0].setVelocity(0)
             wheels[1].setVelocity(0)
             beacon_found = True
             print("target reached")
-  
             
     elif turn_around > 0 and turnL_a:
-            turn_around -= 1
-            leftSpeed = -4.1
-            rightSpeed = 4.1
-            turn_counter_a += 1
-            if turn_counter == 16:
-               turnL_a = False
-               turn_counter_a = 0
+        turn_around -= 1
+        leftSpeed = -4.1
+        rightSpeed = 4.1
+        turn_counter_a += 1
+        if turn_counter == 16:
+           turnL_a = False
+           turn_counter_a = 0
                
     elif turn_around > 0 and not turnL_a:
         turn_around -= 1
@@ -345,29 +345,39 @@ def beacon_finder(adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCoun
     elif adjust > 0:
         adjust -= 1
         leftSpeed = 5
-        rightSpeed = -5    
+        rightSpeed = -5
+        
+    elif scan > 0:
+       if not (current_color == colorToFind): 
+           scan -= 1
+           leftSpeed = -4.1
+           rightSpeed = 4.1
+       else:
+           scan = 0
+           leftSpeed = 9.9
+           rightSpeed = 9.9        
         
     else:  # read sensors
-            if (ds[4].getValue() < 15 and ds[8].getValue() < 15):
+            if (ds[4].getValue() < 13 and ds[8].getValue() < 13):
                 print("turn_around")
                 turn_around = 16.0          
-            elif ds[0].getValue() < 15:
+            elif ds[0].getValue() < 13:
                 f_ObstacleCounter = 5.0
-            elif ds[3].getValue() < 15 or ds[1].getValue() < 15 or ds[2].getValue() < 15 or ds[4].getValue() < 15:
+            elif ds[3].getValue() < 13 or ds[1].getValue() < 13 or ds[2].getValue() < 13 or ds[4].getValue() < 13:
                 fl_ObstacleCounter = 5.5 
-            elif ds[7].getValue() < 15 or ds[5].getValue() < 15 or ds[6].getValue() < 15 or ds[8].getValue() < 15:
+            elif ds[7].getValue() < 13 or ds[5].getValue() < 13 or ds[6].getValue() < 13 or ds[8].getValue() < 13:
                 fr_ObstacleCounter = 5.5 
             else:
                 move_counter += 1
-                if move_counter == 50:
-                    scan_around()
-                elif move_counter == 76:
+                if move_counter == 100:
+                    scan = 200
+                elif move_counter == 150:
                     adjust = 4
                     move_counter = 0    
                 
     wheels[0].setVelocity(leftSpeed)
     wheels[1].setVelocity(rightSpeed)
-    return((adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a))
+    return((scan, adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a))
 
 
 
@@ -409,7 +419,7 @@ initialCounter = 0
 duration2 = 50
 duration1 = 50
 print(TIME_STEP)
-bcnRes = (adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a)
+bcnRes = (scan, adjust, f_ObstacleCounter, fl_ObstacleCounter, fr_ObstacleCounter, turn_counter, move_counter, turnL, turn_around, turnL_a, turn_counter_a)
 while robot.step(TIME_STEP) != -1:
     # Read the sensors:
     # Enter here functions to read sensor data, like:
@@ -423,6 +433,7 @@ while robot.step(TIME_STEP) != -1:
             leftMotor.setVelocity(5)
             rightMotor.setVelocity(-5)
             colorToFind = check_central_colour(camera)
+            colorToFind = "NAVY"
         elif duration2 > 0:
             duration2 -= 1   
             leftMotor.setVelocity(-5)
@@ -446,7 +457,7 @@ while robot.step(TIME_STEP) != -1:
         elif beacon_part == True and beacon_found != True:
             #find_beacon()
             print("current beacon ahead: ", check_central_colour(camera))
-            bcnRes = beacon_finder(bcnRes[0], bcnRes[1], bcnRes[2], bcnRes[3], bcnRes[4], bcnRes[5], bcnRes[6], bcnRes[7], bcnRes[8], bcnRes[9] ) 
+            bcnRes = beacon_finder(bcnRes[0], bcnRes[1], bcnRes[2], bcnRes[3], bcnRes[4], bcnRes[5], bcnRes[6], bcnRes[7], bcnRes[8], bcnRes[9], bcnRes[10]) 
         elif beacon_found == True:
             halt()
             break
