@@ -3,8 +3,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.9987989055174242 -0.0367697094782544 -0.032384175179870245 4.837861149803191
-  position -0.987292007594627 4.980105580281137 2.0991062654259114
+  orientation 0.9999931175787872 0.002658174395039438 0.002588224090678881 4.73904654838301
+  position -1.2725899944128658 9.524959951923561 1.847880623366925
   follow "KAZ"
   followType "None"
 }
@@ -95,7 +95,7 @@ DEF MAZE_WALLS Group {
       length 0.8
     }
     MazeWall {
-      translation 1.3648100003118537 0.14982577445775996 0.875218995587302
+      translation 1.39935 0.149826 0.84069
       rotation 0.010232532205682312 -0.9999476462607919 -4.7076121283250535e-06 -5.324267743862627e-06
       name "maze wall custom(23)"
       length 0.74
@@ -278,7 +278,7 @@ DEF BEACONS Group {
       children [
         DEF BCN_TEAL Shape {
           appearance PBRAppearance {
-            baseColor 0 0.5 0.5
+            baseColor 1 1 0.041413
             roughness 1
             metalness 0
           }
@@ -321,7 +321,7 @@ DEF BEACONS Group {
 StartZone {
   translation -1.03729 0 1.48256
   rotation 0 1 0 -1.5707996938995747
-  colour 1 0 0
+  colour 1 1 0.041413
   name "start zone C"
   recColSlot [
     1 0 0
@@ -587,7 +587,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation 0.3745877289417892 -0.3745891048818734 0.8481550777010237 1.734752245145075
+        rotation 0.3745877289417902 -0.374589104881873 0.8481550777010235 1.7347522451450705
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -617,7 +617,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation 0.38397903249363774 -0.38398044292996464 0.8397137143411189 1.744612370160147
+        rotation 0.38397903249364 -0.38398044292996397 0.839713714341118 1.7446123701601404
         children [
           USE wheel
         ]
