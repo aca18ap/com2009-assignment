@@ -6,7 +6,7 @@ Viewpoint {
   orientation 0.9987989055174242 -0.0367697094782544 -0.032384175179870245 4.837861149803191
   position -0.987292007594627 4.980105580281137 2.0991062654259114
   follow "KAZ"
-  followType "Pan and Tilt Shot"
+  followType "None"
 }
 TexturedBackground {
 }
@@ -321,10 +321,10 @@ DEF BEACONS Group {
 StartZone {
   translation -1.03729 0 1.48256
   rotation 0 1 0 -1.5707996938995747
-  colour 1 0 1
+  colour 1 0 0
   name "start zone C"
   recColSlot [
-    1 0 1
+    1 0 0
   ]
 }
 DEF KAZ Robot {
@@ -587,7 +587,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation 0.08 -0.035 0
-        rotation 0.37458772894178854 -0.3745891048818738 0.8481550777010237 1.73475224514508
+        rotation 0.3745877289417892 -0.3745891048818734 0.8481550777010237 1.734752245145075
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -617,7 +617,7 @@ DEF KAZ Robot {
       ]
       endPoint Solid {
         translation -0.08 -0.035 0
-        rotation 0.38397903249363396 -0.3839804429299643 0.8397137143411205 1.7446123701601555
+        rotation 0.38397903249363774 -0.38398044292996464 0.8397137143411189 1.744612370160147
         children [
           USE wheel
         ]

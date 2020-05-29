@@ -5,7 +5,8 @@
 from controller import Robot
 import time 
 import math
-
+import random
+import sys
 # create the Robot instance.
 robot = Robot()
 
@@ -34,7 +35,8 @@ beacon_part = False
 beacon_found = False
 turn_around = 0
 
-
+approached_colors = set()
+visited_beacons = set()
 ds = []
 dsNames = ['ds_front', 'ds_FL15', 'ds_FL30', 'ds_FL45', 'ds_FL60', 'ds_FR15', 'ds_FR30', 'ds_FR45', 'ds_FR60', 'ds_BR60', 'ds_BL60', 'ds_back']
 
@@ -147,7 +149,7 @@ def navigate_maze():
                     print("wall right ahead")
                     leftMotor.setVelocity(default * 0.1)
                     rightMotor.setVelocity(default * 1.5)
-                elif diff > 6:
+                elif diff > 6 and R0 > 15:
                     print("adj right")
                     rightMotor.setVelocity(default * 0.3)
                     leftMotor.setVelocity(default)
@@ -160,10 +162,15 @@ def navigate_maze():
                     setSpeed(default * 1.5)
         else:
             if R2 < 35:
-                print("still turning")
-                rightMotor.setVelocity(default * 0.7)
-                leftMotor.setVelocity(default * 0.9)    
-            else :
+                if R0 < 20 or R1 < 15:
+                    print("false call")
+                    rightMotor.setVelocity(default * 0.9)
+                    leftMotor.setVelocity(default * 0.6)
+                else:
+                    print("still turning")
+                    rightMotor.setVelocity(default * 0.7)
+                    leftMotor.setVelocity(default * 0.9)    
+            else:
                 print("too far")
                 rightMotor.setVelocity(rightSpeed * 0.6)
                 leftMotor.setVelocity(default * 0.8)
@@ -197,7 +204,7 @@ def classify_colour(r,g,b):
             col = "FUSCHIA"
         elif (g>200 and b<100):
             col = "YELLOW"
-        elsif (g<100 and b<100):
+        elif (g<100 and b<100):
             col = "RED"
     elif (b>200):
         if (g>200 and r<100):
@@ -275,6 +282,7 @@ def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_cou
     current_color = check_central_colour(camera)
     leftSpeed = 9.9
     rightSpeed = 9.9
+
     global beacon_found
     if (current_color == colorToFind) and (ds[0].getValue() < 15):         
             wheels[0].setVelocity(0)
@@ -310,7 +318,10 @@ def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_cou
            scan -= 1
            leftSpeed = -4.1
            rightSpeed = 4.1
+           
+          
        else:
+           print("just moving moving towards")
            scan = 0
            leftSpeed = 9.9
            rightSpeed = 9.9        
@@ -328,12 +339,115 @@ def beacon_finder(scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_cou
                     scan = 200
                 elif move_counter == 150:
                     adjust = 4
-                    move_counter = 0    
+                    move_counter = 0
+                
                 
     wheels[0].setVelocity(leftSpeed)
     wheels[1].setVelocity(rightSpeed)
     return((scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_counter, turn_around))
 
+
+
+def beacon_finder_v2():
+    FS = ds[0].getValue()
+    
+    L15 = ds[1].getValue()
+    L30 = ds[2].getValue()
+    L45 = ds[3].getValue()
+    
+    R15 = ds[5].getValue()
+    R30 = ds[6].getValue()
+    R45 = ds[7].getValue()
+    
+    back = ds[len(ds)-1].getValue()
+    
+    rightSpeed = rightMotor.getVelocity()
+    leftSpeed = leftMotor.getVelocity()
+    
+    c = check_central_colour(camera)
+    print(FS, R15, L15)
+    
+    if (FS < 10 or (R15 < 12) or (L15 < 12) )and c == colorToFind:
+        halt()
+        beacon_found = True
+        sys.exit("Beacon found!")
+    elif FS < 10 and c in approached_colors:
+        visited_beacons.add(c)
+    else:
+        if (FS < 10) or (R15 < 12) or (L15 < 12) or (L30 < 12) or (R30 < 12) or (L45 < 12) or (R45 < 12):
+            print("obstacle ahead, halting")
+            
+            rightMotor.setVelocity(-3)
+            leftMotor.setVelocity(3)
+        elif ds[8].getValue() < 15:
+            leftMotor.setVelocity(0.1 * default)
+            rightMotor.setVelocity(default)
+            print("swerving left")
+        elif ds[4].getValue() < 15:
+            print("swerving right")
+            leftMotor.setVelocity(default)
+            rightMotor.setVelocity(0.1 * default)
+        elif ds[8].getValue() < 15:
+            leftMotor.setVelocity(default * (-0.8))
+            rightMotor.setVelocity(default * (-0.2))
+        elif ds[4].getValue() < 15:
+            leftMotor.setVelocity(default * (-0.2))
+            rightMotor.setVelocity(default * (-0.8))
+        elif (FS < 20 and R15 < 30) or (FS < 20 and L15 < 30):
+            if ds[8].getValue() > 30 or R45 > 35:
+                print("obstacle ahead, going right")
+                rightMotor.setVelocity(default * 0.3)
+                leftMotor.setVelocity(default * 0.9)
+            elif ds[4].getValue() > 30 or L45 > 35:
+                print("obstacle ahead, going left")
+                rightMotor.setVelocity(default * 0.9)
+                leftMotor.setVelocity(default * 0.3)
+        else: 
+            if c == colorToFind:
+                print("beacon in sight")
+                if FS < 10:
+                    print("beacon rached, halting")
+                    halt()
+                else:
+                    print("moving towards the correct beacon")
+                    leftMotor.setVelocity(default)
+                    rightMotor.setVelocity(default)
+            else:
+                if c == "UNKNOWN" or c =="GREY" or c == "WOOD":
+                    leftMotor.setVelocity(-6)
+                    rightMotor.setVelocity(6)
+                    print("rotating on the spot looking for a color")
+                    
+                    
+                elif c in visited_beacons:
+                    print("beacon already explored, looking for something else")
+                    leftMotor.setVelocity(random.randint(1,6))
+                    rightMotor.setVelocity(-1 * random.randint(1,6))
+                    
+                elif c not in approached_colors:
+                    approached_colors.add(c)
+                    setSpeed(default)
+                    print("this color hasn't been visited yet!")
+                else:   
+                    setSpeed(default)
+                    print("moving towards a color")
+            """
+                if R45 > 30:
+                    print("going a bit right")
+                    leftMotor.setVelocity(3)
+                    rightMotor.setVelocity(1)
+                elif L45 > 30:
+                    print("going a bit left")
+                    leftMotor.setVelocity(1)
+                    rightMotor.setVelocity(3)
+                else:
+                    print("going straight")
+                    setSpeed(3)
+                """
+                    
+                    
+                
+    
 
 
 def scan_around():
@@ -376,19 +490,17 @@ duration1 = 50
 print(TIME_STEP)
 bcnRes = (scan, adjust, fl_ObstacleCounter, fr_ObstacleCounter, move_counter, turn_around)
 while robot.step(TIME_STEP) != -1:
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
+    
+    ##Initial color check 
     
     if initialCounter != 1:
         print("initial color check")
-        
         if duration1 > 0:
             duration1 -= 1   
             leftMotor.setVelocity(5)
             rightMotor.setVelocity(-5)
             colorToFind = check_central_colour(camera)
-            colorToFind = "NAVY"
+            #colorToFind = "NAVY"
         elif duration2 > 0:
             duration2 -= 1   
             leftMotor.setVelocity(-5)
@@ -397,25 +509,29 @@ while robot.step(TIME_STEP) != -1:
             initialCounter +=1
             print("Color to find: ",colorToFind)
             
-        
+
     else:
         current_floor = check_central_colour(camera_floor)
-        print(beacon_found)
-        print(current_floor)
+        current_color = check_central_colour(camera)
+
+        ##print(beacon_found)
+        ##print(current_floor)
         if (current_floor != "WHITE-FLOOR" and current_floor != "GREY") and beacon_part == False:
             beacon_part = True
             print("Switched to beaconing challenge mode")
                   
         if beacon_part == False:
-            print("current floor camera color: ",current_floor)
+            #Navigating maze
             navigate_maze()
         elif beacon_part == True and beacon_found != True:
-            #find_beacon()
-            print("current beacon ahead: ", check_central_colour(camera))
+            #Finding beacon
             bcnRes = beacon_finder(bcnRes[0], bcnRes[1], bcnRes[2], bcnRes[3], bcnRes[4], bcnRes[5]) 
+
         elif beacon_found == True:
-            halt()
-            break
+            print("Beacon found :: challenge ended")
+            if check_central_colour(camera) == colorToFind:
+                halt()
+                break
         
     
     pass
